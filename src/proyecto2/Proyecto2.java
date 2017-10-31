@@ -65,7 +65,7 @@ public class Proyecto2 extends JFrame implements ActionListener {
     JButton banterior,bsiguiente;//botones del carrusel
     JLabel cnombre,capellido,cpuesto,cnombre2,capellido2,cpuesto2;
         
-    
+    Lista listadoEmpleado;    
 
     
     JButton b1;
@@ -180,8 +180,19 @@ b16.setBounds(225,175,135,30);
 b16.addActionListener((ActionListener) this);
 pmenu1.add(b16);
 		
-//panel menu administrador: 1
+//panel carrusel
     //-------------------
+    
+    listadoEmpleado= new Lista();
+    
+    Empleado empleado= new Empleado(25);
+    listadoEmpleado.Agregar(empleado);
+    
+    empleado= new Empleado(2312);
+    listadoEmpleado.Agregar(empleado);
+    
+    empleado= new Empleado(9);
+    listadoEmpleado.Agregar(empleado);
     
     pcarrusel = new JPanel();
     pcarrusel.setLayout(null);
