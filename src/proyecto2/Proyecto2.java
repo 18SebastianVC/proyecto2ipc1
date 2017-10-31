@@ -224,7 +224,7 @@ pmenu1.add(b16);
     pcarrusel.add(cpuesto);				
     cpuesto.setBounds(60,110,100,25);
 
-    cnombre2.setText("nombre");	
+    cnombre2.setText(String.valueOf(listadoEmpleado.getActual().getValor().getId()));
     cnombre2.setFont(titulo);
     pcarrusel.add(cnombre2);				
     cnombre2.setBounds(175,50,100,25);
@@ -288,6 +288,18 @@ public void actionPerformed (ActionEvent evento)
         getContentPane().add(pcarrusel);
         pmenu1.setVisible(false);
         pcarrusel.setVisible(true);                
+    }
+    
+    if (evento.getSource()==bsiguiente) //    Carrusel anterior
+    {		                
+        listadoEmpleado.Avanzar();
+        cnombre2.setText(String.valueOf(listadoEmpleado.getActual().getValor().getId()));
+        
+    }
+    if (evento.getSource()==banterior) //    Carrusel siguietne
+    {		                
+        listadoEmpleado.Retroceder();
+        cnombre2.setText(String.valueOf(listadoEmpleado.getActual().getValor().getId()));        
     }
                 
                 

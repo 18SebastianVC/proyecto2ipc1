@@ -8,9 +8,22 @@ public class Lista {
 
     Nodo Inicial = null;
     Nodo Final = null;
-
+    Nodo Actual=null;
+    
     int count = 0;
 
+    public void Avanzar()
+    {
+        Actual=Actual.getNext();
+    }
+    
+    public void Retroceder()
+    {
+        Actual=Actual.getPrevious();
+    }
+    
+    
+    
     public int getCount() {
         return count;
     }
@@ -32,8 +45,17 @@ public class Lista {
             this.setFinal(nuevo);
             this.getFinal().setNext(this.getInicial());
             this.getInicial().setPrevious(this.getFinal());
+            this.setActual(nuevo);
         }
         this.count++;
+    }
+
+    public Nodo getActual() {
+        return Actual;
+    }
+
+    public void setActual(Nodo Actual) {
+        this.Actual = Actual;
     }
 
     public Nodo getInicial() {
