@@ -65,7 +65,14 @@ public class Proyecto2 extends JFrame implements ActionListener {
     JButton banterior,bsiguiente;//botones del carrusel
     JLabel cnombre,capellido,cpuesto,cnombre2,capellido2,cpuesto2;
     JLabel domingo,lunes,martes,miercoles,jueves,viernes,sabado,dom,lun,mar,mie,jue,vie,sab;    
-        
+    String xd="";//marca con x los dias
+    String xl="";
+    String xm="";
+    String xmi="";
+    String xj="";
+    String xv="";
+    String xs="";
+    
     Lista listadoEmpleado;    //lista del carrusel
     
     
@@ -185,16 +192,6 @@ pmenu1.add(b16);
     //-------------------
     
     listadoEmpleado= new Lista();
-    
-    Empleado empleado= new Empleado(01,"Ludwin","Escobar","Analista",1,0,1,1,1,1,1,0,"lescobar","lud24");
-    listadoEmpleado.Agregar(empleado);
-    
-    empleado= new Empleado(02,"Aaron","Flores","Desarrollador",2,0,1,1,0,1,1,1,"aflores","pass1");
-    listadoEmpleado.Agregar(empleado);
-    
-    empleado= new Empleado(03,"Sarah","Aguilar","Desarrollador",2,0,0,1,1,1,1,1,"saguilar","aguilar1");
-    listadoEmpleado.Agregar(empleado);
-    
     pcarrusel = new JPanel();
     pcarrusel.setLayout(null);
     pcarrusel.setVisible(false);
@@ -223,6 +220,16 @@ pmenu1.add(b16);
     jue = new JLabel();
     vie = new JLabel();
     sab = new JLabel();    
+    
+    Empleado empleado= new Empleado(01,"Ludwin","Escobar","Analista",1,0,1,1,1,1,1,0,"lescobar","lud24");
+    listadoEmpleado.Agregar(empleado);
+    
+    empleado= new Empleado(02,"Aaron","Flores","Desarrollador",2,0,1,1,0,1,1,1,"aflores","pass1");
+    listadoEmpleado.Agregar(empleado);
+    
+    empleado= new Empleado(03,"Sarah","Aguilar","Desarrollador",2,0,0,1,1,1,1,1,"saguilar","aguilar1");
+    listadoEmpleado.Agregar(empleado);
+    
         
     cnombre.setText("Nombre: ");	
     cnombre.setFont(titulo);
@@ -239,14 +246,148 @@ pmenu1.add(b16);
     pcarrusel.add(cpuesto);				
     cpuesto.setBounds(60,110,100,25);
     
-    domingo.setText("D");	
+    domingo.setText("D");	//500 70-430
     domingo.setFont(titulo);
     domingo.setHorizontalAlignment(SwingConstants.CENTER);
     domingo.setForeground(Color.WHITE);//LIGHT_GRAY
     domingo.setBackground(Color.GRAY);
+    domingo.setBorder(BorderFactory.createLineBorder(Color.BLACK));// Añade borde a JLabel
     domingo.setOpaque(true);    
     pcarrusel.add(domingo);				
-    domingo.setBounds(50,145,45,25);
+    domingo.setBounds(70,145,50,25);
+        if (listadoEmpleado.getActual().getValor().getD()==1){ dom.setText("X"); }else{dom.setText("");}//MUESTRA X O NADA DE ACUERDO SEA EL CASO            
+        if (listadoEmpleado.getActual().getValor().getL()==1){ lun.setText("X"); }else{lun.setText("");}
+        if (listadoEmpleado.getActual().getValor().getM()==1){ mar.setText("X"); }else{mar.setText("");}
+        if (listadoEmpleado.getActual().getValor().getMi()==1){ mie.setText("X"); }else{mie.setText("");}
+        if (listadoEmpleado.getActual().getValor().getJ()==1){ jue.setText("X"); }else{jue.setText("");}
+        if (listadoEmpleado.getActual().getValor().getV()==1){ vie.setText("X"); }else{vie.setText("");}
+        if (listadoEmpleado.getActual().getValor().getS()==1){ sab.setText("X"); }else{sab.setText("");}
+    
+        dom.setFont(titulo);
+        dom.setHorizontalAlignment(SwingConstants.CENTER);
+        dom.setForeground(Color.BLACK);//
+        dom.setBackground(Color.LIGHT_GRAY);
+        dom.setBorder(BorderFactory.createLineBorder(Color.BLACK));// Añade borde a JLabel
+        dom.setOpaque(true);    
+        pcarrusel.add(dom);				
+        dom.setBounds(70,170,50,25);
+
+    lunes.setText("L");	
+    lunes.setFont(titulo);
+    lunes.setHorizontalAlignment(SwingConstants.CENTER);
+    lunes.setForeground(Color.WHITE);//LIGHT_GRAY
+    lunes.setBackground(Color.GRAY);
+    lunes.setBorder(BorderFactory.createLineBorder(Color.BLACK));// Añade borde a JLabel
+    lunes.setOpaque(true);    
+    pcarrusel.add(lunes);				
+    lunes.setBounds(120,145,50,25);
+//        lun.setText(xl);	
+        lun.setFont(titulo);
+        lun.setHorizontalAlignment(SwingConstants.CENTER);
+        lun.setForeground(Color.BLACK);//
+        lun.setBackground(Color.LIGHT_GRAY);
+        lun.setBorder(BorderFactory.createLineBorder(Color.BLACK));// Añade borde a JLabel
+        lun.setOpaque(true);    
+        pcarrusel.add(lun);				
+        lun.setBounds(120,170,50,25);
+        
+    martes.setText("M");	
+    martes.setFont(titulo);
+    martes.setHorizontalAlignment(SwingConstants.CENTER);
+    martes.setForeground(Color.WHITE);//LIGHT_GRAY
+    martes.setBackground(Color.GRAY);
+    martes.setBorder(BorderFactory.createLineBorder(Color.BLACK));// Añade borde a JLabel
+    martes.setOpaque(true);    
+    pcarrusel.add(martes);				
+    martes.setBounds(170,145,50,25);
+//        mar.setText(xm);	
+        mar.setFont(titulo);
+        mar.setHorizontalAlignment(SwingConstants.CENTER);
+        mar.setForeground(Color.BLACK);
+        mar.setBackground(Color.LIGHT_GRAY);
+        mar.setBorder(BorderFactory.createLineBorder(Color.BLACK));// Añade borde a JLabel
+        mar.setOpaque(true);    
+        pcarrusel.add(mar);				
+        mar.setBounds(170,170,50,25);
+
+    
+    miercoles.setText("Mi");	
+    miercoles.setFont(titulo);
+    miercoles.setHorizontalAlignment(SwingConstants.CENTER);
+    miercoles.setForeground(Color.WHITE);//LIGHT_GRAY
+    miercoles.setBackground(Color.GRAY);
+    miercoles.setBorder(BorderFactory.createLineBorder(Color.BLACK));// Añade borde a JLabel
+    miercoles.setOpaque(true);    
+    pcarrusel.add(miercoles);				
+    miercoles.setBounds(220,145,50,25);
+//        mie.setText(xmi);	
+        mie.setFont(titulo);
+        mie.setHorizontalAlignment(SwingConstants.CENTER);
+        mie.setForeground(Color.BLACK);
+        mie.setBackground(Color.LIGHT_GRAY);
+        mie.setBorder(BorderFactory.createLineBorder(Color.BLACK));// Añade borde a JLabel
+        mie.setOpaque(true);    
+        pcarrusel.add(mie);				
+        mie.setBounds(220,170,50,25);
+    
+    jueves.setText("J");	
+    jueves.setFont(titulo);
+    jueves.setHorizontalAlignment(SwingConstants.CENTER);
+    jueves.setForeground(Color.WHITE);//LIGHT_GRAY
+    jueves.setBackground(Color.GRAY);
+    jueves.setBorder(BorderFactory.createLineBorder(Color.BLACK));// Añade borde a JLabel
+    jueves.setOpaque(true);    
+    pcarrusel.add(jueves);				
+    jueves.setBounds(270,145,50,25);
+//        jue.setText(xj);	
+        jue.setFont(titulo);
+        jue.setHorizontalAlignment(SwingConstants.CENTER);
+        jue.setForeground(Color.BLACK);
+        jue.setBackground(Color.LIGHT_GRAY);
+        jue.setBorder(BorderFactory.createLineBorder(Color.BLACK));// Añade borde a JLabel
+        jue.setOpaque(true);    
+        pcarrusel.add(jue);				
+        jue.setBounds(270,170,50,25);
+    
+    viernes.setText("V");	
+    viernes.setFont(titulo);
+    viernes.setHorizontalAlignment(SwingConstants.CENTER);
+    viernes.setForeground(Color.WHITE);//LIGHT_GRAY
+    viernes.setBackground(Color.GRAY);
+    viernes.setBorder(BorderFactory.createLineBorder(Color.BLACK));// Añade borde a JLabel
+    viernes.setOpaque(true);    
+    pcarrusel.add(viernes);				
+    viernes.setBounds(320,145,50,25);
+//        vie.setText(xv);	
+        vie.setFont(titulo);
+        vie.setHorizontalAlignment(SwingConstants.CENTER);
+        vie.setForeground(Color.BLACK);
+        vie.setBackground(Color.LIGHT_GRAY);
+        vie.setBorder(BorderFactory.createLineBorder(Color.BLACK));// Añade borde a JLabel
+        vie.setOpaque(true);    
+        pcarrusel.add(vie);				
+        vie.setBounds(320,170,50,25);
+    
+    sabado.setText("S");	
+    sabado.setFont(titulo);
+    sabado.setHorizontalAlignment(SwingConstants.CENTER);
+    sabado.setForeground(Color.WHITE);//LIGHT_GRAY
+    sabado.setBackground(Color.GRAY);
+    sabado.setBorder(BorderFactory.createLineBorder(Color.BLACK));// Añade borde a JLabel
+    sabado.setOpaque(true);    
+    pcarrusel.add(sabado);				
+    sabado.setBounds(370,145,50,25);
+//        sab.setText(xs);	
+        sab.setFont(titulo);
+        sab.setHorizontalAlignment(SwingConstants.CENTER);
+        sab.setForeground(Color.BLACK);
+        sab.setBackground(Color.LIGHT_GRAY);
+        sab.setBorder(BorderFactory.createLineBorder(Color.BLACK));// Añade borde a JLabel
+        sab.setOpaque(true);    
+        pcarrusel.add(sab);				
+        sab.setBounds(370,170,50,25);
+    
+    
     
     cnombre2.setText(String.valueOf(listadoEmpleado.getActual().getValor().getNombre()));
     cnombre2.setFont(titulo);
@@ -320,6 +461,13 @@ public void actionPerformed (ActionEvent evento)
         cnombre2.setText(String.valueOf(listadoEmpleado.getActual().getValor().getNombre()));
         capellido2.setText(String.valueOf(listadoEmpleado.getActual().getValor().getApellido()));
         cpuesto2.setText(String.valueOf(listadoEmpleado.getActual().getValor().getPuesto()));
+        if (listadoEmpleado.getActual().getValor().getD()==1){ dom.setText("X"); }else{dom.setText("");}
+        if (listadoEmpleado.getActual().getValor().getL()==1){ lun.setText("X"); }else{lun.setText("");}
+        if (listadoEmpleado.getActual().getValor().getM()==1){ mar.setText("X"); }else{mar.setText("");}
+        if (listadoEmpleado.getActual().getValor().getMi()==1){ mie.setText("X"); }else{mie.setText("");}
+        if (listadoEmpleado.getActual().getValor().getJ()==1){ jue.setText("X"); }else{jue.setText("");}
+        if (listadoEmpleado.getActual().getValor().getV()==1){ vie.setText("X"); }else{vie.setText("");}
+        if (listadoEmpleado.getActual().getValor().getS()==1){ sab.setText("X"); }else{sab.setText("");}
         
     }
     if (evento.getSource()==banterior) //    Carrusel siguietne
@@ -328,6 +476,13 @@ public void actionPerformed (ActionEvent evento)
         cnombre2.setText(String.valueOf(listadoEmpleado.getActual().getValor().getNombre()));        
         capellido2.setText(String.valueOf(listadoEmpleado.getActual().getValor().getApellido()));        
         cpuesto2.setText(String.valueOf(listadoEmpleado.getActual().getValor().getPuesto()));        
+        if (listadoEmpleado.getActual().getValor().getD()==1){ dom.setText("X"); }else{dom.setText("");}
+        if (listadoEmpleado.getActual().getValor().getL()==1){ lun.setText("X"); }else{lun.setText("");}
+        if (listadoEmpleado.getActual().getValor().getM()==1){ mar.setText("X"); }else{mar.setText("");}
+        if (listadoEmpleado.getActual().getValor().getMi()==1){ mie.setText("X"); }else{mie.setText("");}
+        if (listadoEmpleado.getActual().getValor().getJ()==1){ jue.setText("X"); }else{jue.setText("");}
+        if (listadoEmpleado.getActual().getValor().getV()==1){ vie.setText("X"); }else{vie.setText("");}
+        if (listadoEmpleado.getActual().getValor().getS()==1){ sab.setText("X"); }else{sab.setText("");}
         
     }
                 
