@@ -1,4 +1,3 @@
-
 package proyecto2;
 
  
@@ -42,6 +41,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 
 /**
@@ -64,9 +64,10 @@ public class Proyecto2 extends JFrame implements ActionListener {
     JButton b01,b11,b12,b13,b14,b15,b16;//botones del menu administrador
     JButton banterior,bsiguiente;//botones del carrusel
     JLabel cnombre,capellido,cpuesto,cnombre2,capellido2,cpuesto2;
+    JLabel domingo,lunes,martes,miercoles,jueves,viernes,sabado,dom,lun,mar,mie,jue,vie,sab;    
         
-    Lista listadoEmpleado;    
-
+    Lista listadoEmpleado;    //lista del carrusel
+    
     
     JButton b1;
     JList d1;
@@ -185,13 +186,13 @@ pmenu1.add(b16);
     
     listadoEmpleado= new Lista();
     
-    Empleado empleado= new Empleado(25);
+    Empleado empleado= new Empleado(01,"Ludwin","Escobar","Analista",1,0,1,1,1,1,1,0,"lescobar","lud24");
     listadoEmpleado.Agregar(empleado);
     
-    empleado= new Empleado(2312);
+    empleado= new Empleado(02,"Aaron","Flores","Desarrollador",2,0,1,1,0,1,1,1,"aflores","pass1");
     listadoEmpleado.Agregar(empleado);
     
-    empleado= new Empleado(9);
+    empleado= new Empleado(03,"Sarah","Aguilar","Desarrollador",2,0,0,1,1,1,1,1,"saguilar","aguilar1");
     listadoEmpleado.Agregar(empleado);
     
     pcarrusel = new JPanel();
@@ -204,10 +205,24 @@ pmenu1.add(b16);
     cnombre= new JLabel();
     capellido = new JLabel();
     cpuesto = new JLabel();
+    domingo =new JLabel();
+    lunes = new JLabel();
+    martes = new JLabel();
+    miercoles = new JLabel();
+    jueves = new JLabel();
+    viernes = new JLabel();
+    sabado = new JLabel();
     
     cnombre2= new JLabel();
     capellido2 = new JLabel();
     cpuesto2 = new JLabel();
+    dom = new JLabel();
+    lun = new JLabel();
+    mar = new JLabel();
+    mie = new JLabel();
+    jue = new JLabel();
+    vie = new JLabel();
+    sab = new JLabel();    
         
     cnombre.setText("Nombre: ");	
     cnombre.setFont(titulo);
@@ -223,30 +238,39 @@ pmenu1.add(b16);
     cpuesto.setFont(titulo);
     pcarrusel.add(cpuesto);				
     cpuesto.setBounds(60,110,100,25);
-
-    cnombre2.setText(String.valueOf(listadoEmpleado.getActual().getValor().getId()));
+    
+    domingo.setText("D");	
+    domingo.setFont(titulo);
+    domingo.setHorizontalAlignment(SwingConstants.CENTER);
+    domingo.setForeground(Color.WHITE);//LIGHT_GRAY
+    domingo.setBackground(Color.GRAY);
+    domingo.setOpaque(true);    
+    pcarrusel.add(domingo);				
+    domingo.setBounds(50,145,45,25);
+    
+    cnombre2.setText(String.valueOf(listadoEmpleado.getActual().getValor().getNombre()));
     cnombre2.setFont(titulo);
     pcarrusel.add(cnombre2);				
     cnombre2.setBounds(175,50,100,25);
 
-    capellido2.setText("apellido");	
+    capellido2.setText(String.valueOf(listadoEmpleado.getActual().getValor().getApellido()));
     capellido2.setFont(titulo);
     pcarrusel.add(capellido2);				
     capellido2.setBounds(175,80,100,25);
 
-    cpuesto2.setText("puesto");	
+    cpuesto2.setText(String.valueOf(listadoEmpleado.getActual().getValor().getPuesto()));
     cpuesto2.setFont(titulo);
     pcarrusel.add(cpuesto2);				
     cpuesto2.setBounds(175,110,100,25);
     
     
     banterior.setText("Anterior");
-    banterior.setBounds(50,175,100,30);			
+    banterior.setBounds(50,225,100,30);			
     banterior.addActionListener((ActionListener) this);
     pcarrusel.add(banterior);
     
     bsiguiente.setText("Siguiente");
-    bsiguiente.setBounds(250,175,100,30);			
+    bsiguiente.setBounds(250,225,100,30);			
     bsiguiente.addActionListener((ActionListener) this);
     pcarrusel.add(bsiguiente);
     
@@ -293,13 +317,18 @@ public void actionPerformed (ActionEvent evento)
     if (evento.getSource()==bsiguiente) //    Carrusel anterior
     {		                
         listadoEmpleado.Avanzar();
-        cnombre2.setText(String.valueOf(listadoEmpleado.getActual().getValor().getId()));
+        cnombre2.setText(String.valueOf(listadoEmpleado.getActual().getValor().getNombre()));
+        capellido2.setText(String.valueOf(listadoEmpleado.getActual().getValor().getApellido()));
+        cpuesto2.setText(String.valueOf(listadoEmpleado.getActual().getValor().getPuesto()));
         
     }
     if (evento.getSource()==banterior) //    Carrusel siguietne
     {		                
         listadoEmpleado.Retroceder();
-        cnombre2.setText(String.valueOf(listadoEmpleado.getActual().getValor().getId()));        
+        cnombre2.setText(String.valueOf(listadoEmpleado.getActual().getValor().getNombre()));        
+        capellido2.setText(String.valueOf(listadoEmpleado.getActual().getValor().getApellido()));        
+        cpuesto2.setText(String.valueOf(listadoEmpleado.getActual().getValor().getPuesto()));        
+        
     }
                 
                 
