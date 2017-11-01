@@ -421,26 +421,30 @@ pmenu1.add(b16);
 public void actionPerformed (ActionEvent evento)
 {
 
-    if (evento.getSource()==b1) //    AGREGAR 
+    if (evento.getSource()==b1) //    LOGIN 
     {		
         String texto,texto2;
         texto=txusuario.getText();
         texto2=textopassword.getText();
-                
-/*        if ((texto.contains(listadoEmpleado.getInicial().getValor().getNick()))&&(texto2.contains(listadoEmpleado.getInicial().getValor().getPassword())))
+
+        Empleado indice=listadoEmpleado.getInicial().getValor();                                
+        for (int i=1; i<=listadoEmpleado.getCount();i++)
+        {                            
+            if ((texto.contains(indice.getNick()))&&(texto2.contains(indice.getPassword())))
+            {                                        
+                getContentPane().add(pmenu1);
+                pmenu1.setVisible(true);
+                plogin.setVisible(false);                                    
+            }                      
+            indice=listadoEmpleado.getActual().getNext().getValor();
+        }
+        if (plogin.isVisible())
         {                                        
-            System.out.println("Log in");*/
-            getContentPane().add(pmenu1);
-            pmenu1.setVisible(true);
-            plogin.setVisible(false);                                    
-/*        }
-        else
-        {
-            System.out.println("Usuario o contraseña incorrecto(s)");
-            JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecto(s)");
-        }   
-       */ 
+            JOptionPane.showMessageDialog(null, "Usuario y/o contraseña incorrecto(s)");
+        }
     }
+
+    
                 
     if (evento.getSource()==b01) //    REGRESAR
     {		                
