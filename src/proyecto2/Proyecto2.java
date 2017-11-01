@@ -56,27 +56,26 @@ public class Proyecto2 extends JFrame implements ActionListener {
     JLabel lbusuario,lbpassword;    
     JTextField txusuario;
     JPasswordField textopassword;
-    
+    JButton b1;
     //administrador
     JPanel pmenu1;
     JPanel pcarrusel,paddempleado,peditempleado,ptarea1,ptarea2,ptarea3;//tarea1 crea, tarea2 edita, tarea3 reportes
     
     JButton b01,b11,b12,b13,b14,b15,b16;//botones del menu administrador
+    
+    //carrusel
     JButton banterior,bsiguiente;//botones del carrusel
     JLabel cnombre,capellido,cpuesto,cnombre2,capellido2,cpuesto2;
-    JLabel domingo,lunes,martes,miercoles,jueves,viernes,sabado,dom,lun,mar,mie,jue,vie,sab;    
-    String xd="";//marca con x los dias
-    String xl="";
-    String xm="";
-    String xmi="";
-    String xj="";
-    String xv="";
-    String xs="";
+    JLabel domingo,lunes,martes,miercoles,jueves,viernes,sabado,dom,lun,mar,mie,jue,vie,sab;        
     
     Lista listadoEmpleado;    //lista del carrusel
     
+    //Agregar empleado
+    JButton agregarEmpleado;
+    JLabel lbaddId,lbaddNombre,lbaddApellido,lbaddPuesto,lbaddtipo;
+    JTextField d;
     
-    JButton b1;
+
     JList d1;
     DefaultListModel modeloLista = new DefaultListModel();
       JScrollPane barra;
@@ -189,7 +188,7 @@ b16.addActionListener((ActionListener) this);
 pmenu1.add(b16);
 		
 //panel carrusel
-    //-------------------
+//-------------------
     
     listadoEmpleado= new Lista();
     pcarrusel = new JPanel();
@@ -281,7 +280,6 @@ pmenu1.add(b16);
     lunes.setOpaque(true);    
     pcarrusel.add(lunes);				
     lunes.setBounds(120,145,50,25);
-//        lun.setText(xl);	
         lun.setFont(titulo);
         lun.setHorizontalAlignment(SwingConstants.CENTER);
         lun.setForeground(Color.BLACK);//
@@ -300,7 +298,6 @@ pmenu1.add(b16);
     martes.setOpaque(true);    
     pcarrusel.add(martes);				
     martes.setBounds(170,145,50,25);
-//        mar.setText(xm);	
         mar.setFont(titulo);
         mar.setHorizontalAlignment(SwingConstants.CENTER);
         mar.setForeground(Color.BLACK);
@@ -320,7 +317,6 @@ pmenu1.add(b16);
     miercoles.setOpaque(true);    
     pcarrusel.add(miercoles);				
     miercoles.setBounds(220,145,50,25);
-//        mie.setText(xmi);	
         mie.setFont(titulo);
         mie.setHorizontalAlignment(SwingConstants.CENTER);
         mie.setForeground(Color.BLACK);
@@ -339,7 +335,6 @@ pmenu1.add(b16);
     jueves.setOpaque(true);    
     pcarrusel.add(jueves);				
     jueves.setBounds(270,145,50,25);
-//        jue.setText(xj);	
         jue.setFont(titulo);
         jue.setHorizontalAlignment(SwingConstants.CENTER);
         jue.setForeground(Color.BLACK);
@@ -358,7 +353,6 @@ pmenu1.add(b16);
     viernes.setOpaque(true);    
     pcarrusel.add(viernes);				
     viernes.setBounds(320,145,50,25);
-//        vie.setText(xv);	
         vie.setFont(titulo);
         vie.setHorizontalAlignment(SwingConstants.CENTER);
         vie.setForeground(Color.BLACK);
@@ -377,7 +371,6 @@ pmenu1.add(b16);
     sabado.setOpaque(true);    
     pcarrusel.add(sabado);				
     sabado.setBounds(370,145,50,25);
-//        sab.setText(xs);	
         sab.setFont(titulo);
         sab.setHorizontalAlignment(SwingConstants.CENTER);
         sab.setForeground(Color.BLACK);
@@ -403,18 +396,18 @@ pmenu1.add(b16);
     cpuesto2.setFont(titulo);
     pcarrusel.add(cpuesto2);				
     cpuesto2.setBounds(175,110,100,25);
-    
-    
-    banterior.setText("Anterior");
+        
+    banterior.setText("Anterior");//Boton anterior
     banterior.setBounds(50,225,100,30);			
     banterior.addActionListener((ActionListener) this);
     pcarrusel.add(banterior);
     
-    bsiguiente.setText("Siguiente");
+    bsiguiente.setText("Siguiente");//boton siguiente
     bsiguiente.setBounds(250,225,100,30);			
     bsiguiente.addActionListener((ActionListener) this);
     pcarrusel.add(bsiguiente);
-    
+
+//    
 
     }
     
@@ -422,7 +415,7 @@ public void actionPerformed (ActionEvent evento)
 {
 
     if (evento.getSource()==b1) //    LOGIN 
-    {		
+    {/*		
         String texto,texto2;
         texto=txusuario.getText();
         texto2=textopassword.getText();
@@ -431,17 +424,17 @@ public void actionPerformed (ActionEvent evento)
         for (int i=1; i<=listadoEmpleado.getCount();i++)
         {                            
             if ((texto.contains(indice.getNick()))&&(texto2.contains(indice.getPassword())))
-            {                                        
+            { */                                       
                 getContentPane().add(pmenu1);
                 pmenu1.setVisible(true);
                 plogin.setVisible(false);                                    
-            }                      
+/*            }                      
             indice=listadoEmpleado.getActual().getNext().getValor();
         }
         if (plogin.isVisible())
         {                                        
             JOptionPane.showMessageDialog(null, "Usuario y/o contraseña incorrecto(s)");
-        }
+        }*/
     }
 
     
