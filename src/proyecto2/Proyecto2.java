@@ -35,6 +35,7 @@ import java.util.LinkedList;
 import java.util.Vector;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
+import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
@@ -59,33 +60,33 @@ public class Proyecto2 extends JFrame implements ActionListener {
     JButton b1;
     //administrador
     JPanel pmenu1;
-    JPanel pcarrusel,paddempleado,peditempleado,ptarea1,ptarea2,ptarea3;//tarea1 crea, tarea2 edita, tarea3 reportes
+    JPanel pcarrusel,pAddEmpleado,pEditEmpleado,pCrearTarea,pEditarTarea1,pReporteTarea;
     
     JButton b01,b11,b12,b13,b14,b15,b16;//botones del menu administrador
     
     //carrusel
-    JButton banterior,bsiguiente;//botones del carrusel
+    JButton bcRegresar,banterior,bsiguiente;//botones del carrusel
     JLabel cnombre,capellido,cpuesto,cnombre2,capellido2,cpuesto2;
     JLabel domingo,lunes,martes,miercoles,jueves,viernes,sabado,dom,lun,mar,mie,jue,vie,sab;        
     
     Lista listadoEmpleado;    //lista del carrusel
     
-    //Agregar empleado
-    JButton agregarEmpleado;
-    JLabel lbaddId,lbaddNombre,lbaddApellido,lbaddPuesto,lbaddtipo;
-    JTextField d;
-    
-
-    JList d1;
-    DefaultListModel modeloLista = new DefaultListModel();
-      JScrollPane barra;
-         
+    //Agregar empleado: Jpanel : paddEmpleado
+    DefaultListModel modeloAgregar = new DefaultListModel();
+    JButton bRegresar2,bAgregarEmpleado;
+    JCheckBox chbxaddD,chbxaddL,chbxaddM,chbxaddMi,chbxaddJ,chbxaddV,chbxaddS;
+    JComboBox cbxaddTipo;    
+    JLabel lbaddId,lbaddNombre,lbaddApellido,lbaddPuesto,lbaddTipo,lbaddD,lbaddL,lbaddM,lbaddMi,lbaddJ,lbaddV,lbaddS,lbaddNick,lbaddPassword;        
+    JList listaEmpleados1;
+    JPasswordField txaddPassword;
+    JScrollPane barraAgregarE;
+    JTextField txaddId,txaddNombre,txaddApellido,txaddPuesto,txaddNick;             
     
     public Proyecto2()
     {
         setTitle("Proyecto No. 2");
                 
-        setSize(500,350);				
+        setSize(500,400);				
         setVisible(true);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(Proyecto2.EXIT_ON_CLOSE);
@@ -195,6 +196,7 @@ pmenu1.add(b16);
     pcarrusel.setLayout(null);
     pcarrusel.setVisible(false);
 
+    bcRegresar = new JButton();
     banterior= new JButton();
     bsiguiente= new JButton();
 
@@ -222,14 +224,21 @@ pmenu1.add(b16);
     
     Empleado empleado= new Empleado(01,"Ludwin","Escobar","Analista",1,0,1,1,1,1,1,0,"lescobar","lud24");
     listadoEmpleado.Agregar(empleado);
+    modeloAgregar.addElement(empleado);    
     
     empleado= new Empleado(02,"Aaron","Flores","Desarrollador",2,0,1,1,0,1,1,1,"aflores","pass1");
     listadoEmpleado.Agregar(empleado);
+    modeloAgregar.addElement(empleado);
     
     empleado= new Empleado(03,"Sarah","Aguilar","Desarrollador",2,0,0,1,1,1,1,1,"saguilar","aguilar1");
     listadoEmpleado.Agregar(empleado);
-    
+    modeloAgregar.addElement(empleado);
         
+    bcRegresar.setText("Regresar");
+    bcRegresar.setBounds(20,20,100,25);			
+    bcRegresar.addActionListener((ActionListener) this);
+    pcarrusel.add(bcRegresar);
+
     cnombre.setText("Nombre: ");	
     cnombre.setFont(titulo);
     pcarrusel.add(cnombre);				
@@ -245,7 +254,7 @@ pmenu1.add(b16);
     pcarrusel.add(cpuesto);				
     cpuesto.setBounds(60,110,100,25);
     
-    domingo.setText("D");	//500 70-430
+    domingo.setText("D");
     domingo.setFont(titulo);
     domingo.setHorizontalAlignment(SwingConstants.CENTER);
     domingo.setForeground(Color.WHITE);//LIGHT_GRAY
@@ -378,8 +387,7 @@ pmenu1.add(b16);
         sab.setBorder(BorderFactory.createLineBorder(Color.BLACK));// Añade borde a JLabel
         sab.setOpaque(true);    
         pcarrusel.add(sab);				
-        sab.setBounds(370,170,50,25);
-    
+        sab.setBounds(370,170,50,25);    
     
     
     cnombre2.setText(String.valueOf(listadoEmpleado.getActual().getValor().getNombre()));
@@ -408,6 +416,165 @@ pmenu1.add(b16);
     pcarrusel.add(bsiguiente);
 
 //    
+//Panel: Agregar nuevo empleado
+            
+    pAddEmpleado = new JPanel();
+    bRegresar2= new JButton();
+    bAgregarEmpleado= new JButton();
+    chbxaddD = new JCheckBox();
+    chbxaddL = new JCheckBox();
+    chbxaddM = new JCheckBox();
+    chbxaddMi = new JCheckBox();
+    chbxaddJ = new JCheckBox();
+    chbxaddV = new JCheckBox();
+    chbxaddS = new JCheckBox();
+    cbxaddTipo = new JComboBox();
+    lbaddId = new JLabel();
+    lbaddNombre = new JLabel();
+    lbaddApellido = new JLabel();
+    lbaddPuesto = new JLabel();
+    lbaddTipo = new JLabel();
+    lbaddD = new JLabel();
+    lbaddL = new JLabel();
+    lbaddM = new JLabel();
+    lbaddMi = new JLabel();
+    lbaddJ = new JLabel();
+    lbaddV = new JLabel();
+    lbaddS = new JLabel();
+    lbaddNick = new JLabel();
+    lbaddPassword = new JLabel();
+    listaEmpleados1 = new JList();
+    //barraAgregarE = new JScrollPane(listaEmpleados1);
+    txaddId = new JTextField ();
+    txaddNombre = new JTextField ();
+    txaddApellido = new JTextField ();
+    txaddPuesto = new JTextField ();
+    txaddNick = new JTextField ();
+    txaddPassword = new JPasswordField ();
+
+    pAddEmpleado.setLayout(null);
+    pAddEmpleado.setVisible(false);
+    
+    
+    bRegresar2.setText("Regresar");
+    bRegresar2.setBounds(20,25,100,30);			
+    bRegresar2.addActionListener((ActionListener) this);
+    pAddEmpleado.add(bRegresar2);
+
+    lbaddId.setText("Id: ");
+    lbaddId.setHorizontalAlignment(SwingConstants.RIGHT);
+    lbaddId.setFont(subtitulo);
+    pAddEmpleado.add(lbaddId);				
+    lbaddId.setBounds(30,75,100,25);
+	pAddEmpleado.add(txaddId);
+	txaddId.setBounds(135, 75, 130, 20);
+
+
+    lbaddNombre.setText("Nombre: ");	
+    lbaddNombre.setHorizontalAlignment(SwingConstants.RIGHT);
+    lbaddNombre.setFont(subtitulo);
+    pAddEmpleado.add(lbaddNombre);				
+    lbaddNombre.setBounds(30,100,100,25);
+	pAddEmpleado.add(txaddNombre);
+	txaddNombre.setBounds(135, 100, 130, 20);
+
+    lbaddApellido.setText("Apellido: ");	
+    lbaddApellido.setHorizontalAlignment(SwingConstants.RIGHT);
+    lbaddApellido.setFont(subtitulo);
+    pAddEmpleado.add(lbaddApellido);				
+    lbaddApellido.setBounds(30,125,100,25);
+	pAddEmpleado.add(txaddApellido);
+	txaddApellido.setBounds(135, 125, 130, 20);
+    
+    lbaddPuesto.setText("Puesto: ");	
+    lbaddPuesto.setHorizontalAlignment(SwingConstants.RIGHT);
+    lbaddPuesto.setFont(subtitulo);
+    pAddEmpleado.add(lbaddPuesto);				
+    lbaddPuesto.setBounds(30,150,100,25);
+	pAddEmpleado.add(txaddPuesto);
+	txaddPuesto.setBounds(135, 150, 130, 20);
+    
+    lbaddTipo.setText("Tipo Empleado: ");	
+    lbaddTipo.setHorizontalAlignment(SwingConstants.RIGHT);
+    lbaddTipo.setFont(subtitulo);
+    pAddEmpleado.add(lbaddTipo);				
+    lbaddTipo.setBounds(20,175,110,25);
+	pAddEmpleado.add(cbxaddTipo);
+	cbxaddTipo.setBounds(135, 175, 130, 20);
+        cbxaddTipo.addItem("Administrador");
+        cbxaddTipo.addItem("Empleado");
+        
+    
+    lbaddNick.setText("Nick: ");	
+    lbaddNick.setHorizontalAlignment(SwingConstants.RIGHT);
+    lbaddNick.setFont(subtitulo);
+    pAddEmpleado.add(lbaddNick);				
+    lbaddNick.setBounds(30,200,100,25);
+	pAddEmpleado.add(txaddNick);
+	txaddNick.setBounds(135, 200, 130, 20);
+    
+    lbaddPassword.setText("Password: ");
+    lbaddPassword.setHorizontalAlignment(SwingConstants.RIGHT);
+    lbaddPassword.setFont(subtitulo);
+    pAddEmpleado.add(lbaddPassword);				
+    lbaddPassword.setBounds(30,225,100,25);    	
+	pAddEmpleado.add(txaddPassword);
+	txaddPassword.setBounds(135, 225, 130, 20);
+    
+    chbxaddD.setText("Dom");
+    pAddEmpleado.add(chbxaddD);				
+    chbxaddD.setBounds(50,275,55,25);   
+    
+    chbxaddL.setText("Lun");
+    pAddEmpleado.add(chbxaddL);				
+    chbxaddL.setBounds(110,275,55,25);
+    
+    chbxaddM.setText("Mar");
+    pAddEmpleado.add(chbxaddM);
+    chbxaddM.setBounds(170,275,55,25);
+    
+    chbxaddMi.setText("Mie");
+    pAddEmpleado.add(chbxaddMi);
+    chbxaddMi.setBounds(230,275,55,25);
+    
+    chbxaddJ.setText("Jue");
+    pAddEmpleado.add(chbxaddJ);
+    chbxaddJ.setBounds(50,300,55,25);
+    
+    chbxaddV.setText("Vie");
+    pAddEmpleado.add(chbxaddV);
+    chbxaddV.setBounds(110,300,55,25);
+    
+    chbxaddS.setText("Sab");
+    pAddEmpleado.add(chbxaddS);
+    chbxaddS.setBounds(170,300,55,25);
+    
+    listaEmpleados1.setModel(modeloAgregar);		
+    listaEmpleados1.setBorder(BorderFactory.createLineBorder(Color.BLACK));// Añade borde a JList
+    pAddEmpleado.add(listaEmpleados1);
+    
+    listaEmpleados1.addMouseListener(new MouseAdapter()
+    {
+        public void mouseClicked(MouseEvent me)
+        {
+            if(me.getClickCount() == 2)
+            {// Cuenta la cantidad de clicks para saber si es doble                        
+                mostrarEmpleado();                                                                                                    
+            }
+        }
+    });                
+
+    
+    barraAgregarE = new JScrollPane(listaEmpleados1);
+    barraAgregarE.setBounds(300,75,150,175);//300,75,150,175     
+    pAddEmpleado.add(barraAgregarE);
+    
+    
+    bAgregarEmpleado.setText("Agregar");
+    bAgregarEmpleado.setBounds(325,275,100,25);			
+    bAgregarEmpleado.addActionListener((ActionListener) this);
+    pAddEmpleado.add(bAgregarEmpleado);
+
 
     }
     
@@ -435,21 +602,37 @@ public void actionPerformed (ActionEvent evento)
         {                                        
             JOptionPane.showMessageDialog(null, "Usuario y/o contraseña incorrecto(s)");
         }*/
-    }
-
-    
-                
-    if (evento.getSource()==b01) //    REGRESAR
-    {		                
-        pmenu1.setVisible(false);
-        plogin.setVisible(true);                
-    }
+    }                
 
     if (evento.getSource()==b11) //    Carrusel
     {		                
         getContentPane().add(pcarrusel);
         pmenu1.setVisible(false);
         pcarrusel.setVisible(true);                
+    }
+    if (evento.getSource()==b01) //    REGRESAR
+    {		                
+        pmenu1.setVisible(false);
+        plogin.setVisible(true);                
+    }
+
+    if (evento.getSource()==b12) //    Carrusel
+    {		                
+        getContentPane().add(pAddEmpleado);
+        pmenu1.setVisible(false);
+        pAddEmpleado.setVisible(true);                
+    }
+
+    if (evento.getSource()==bcRegresar) //    REGRESAR: de carrusel a menu administrador
+    {		                
+        pcarrusel.setVisible(false);
+        pmenu1.setVisible(true);                
+    }
+
+    if (evento.getSource()==bRegresar2) //    REGRESAR: de Agregar emleado a menu administrador
+    {		                
+        pAddEmpleado.setVisible(false);
+        pmenu1.setVisible(true);                
     }
     
     if (evento.getSource()==bsiguiente) //    Carrusel anterior
@@ -479,13 +662,109 @@ public void actionPerformed (ActionEvent evento)
         if (listadoEmpleado.getActual().getValor().getMi()==1){ mie.setText("X"); }else{mie.setText("");}
         if (listadoEmpleado.getActual().getValor().getJ()==1){ jue.setText("X"); }else{jue.setText("");}
         if (listadoEmpleado.getActual().getValor().getV()==1){ vie.setText("X"); }else{vie.setText("");}
-        if (listadoEmpleado.getActual().getValor().getS()==1){ sab.setText("X"); }else{sab.setText("");}
-        
+        if (listadoEmpleado.getActual().getValor().getS()==1){ sab.setText("X"); }else{sab.setText("");}        
+    }
+                
+    if (evento.getSource()==bAgregarEmpleado) //    Agregar un empleado nuevo
+    {		                
+        AgregarEmpleado();
     }
                 
                 
-                
 }
+
+private void mostrarEmpleado()
+{            
+    int index= listaEmpleados1.getSelectedIndex();
+    Empleado emp=(Empleado)modeloAgregar.getElementAt(index);    
+    String tipo="";
+    String dd,dl,dm,dmi,dj,dv,ds;    
+    
+    if(emp.getTipousuario()==1)
+    { tipo="Administrador"; }    
+    if(emp.getTipousuario()==2)
+    { tipo="Adminisdor"; }
+    
+    if (emp.getD()==1){ dd="D, ";} else {dd="";}
+    if (emp.getL()==1){ dl="L, ";} else {dl="";}
+    if (emp.getM()==1){ dm="M, ";} else {dm="";}
+    if (emp.getMi()==1){ dmi="Mi, ";} else {dmi="";}
+    if (emp.getJ()==1){ dj="J, ";} else {dj="";}
+    if (emp.getV()==1){ dv="V, ";} else {dv="";}
+    if (emp.getS()==1){ ds="S, ";} else {ds="";}
+    
+    String dias=dd+dl+dm+dmi+dj+dv+ds;
+    
+    JOptionPane.showMessageDialog(null, "Id: "+emp.getId()+"\n"
+                    + "Nombre: "+emp.getNombre()+" "+emp.getApellido()+"\n"
+                    + "Puesto: "+emp.getPuesto()+"\n"
+                    + "Tipo: "+tipo+"\n"
+                    + "Nick: "+emp.getNick()+"\n"
+                    + "Password: "+emp.getPassword()+"\n"                            
+                    + "Dias Laborales: "+dias+"\n","Información de ususario", JOptionPane.DEFAULT_OPTION);          
+//      JOptionPane.showMessageDialog(null, "Mensaje dentro de la ventana", "Titulo", JOptionPane.DEFAULT_OPTION);                        
+}       
+
+private void AgregarEmpleado()
+{            
+     int Id;
+     String nombre,apellido,puesto;
+     int tipousuario,d,l,m,mi,j,v,s;
+     String nick,password;
+     
+     String tipo1=String.valueOf(cbxaddTipo.getSelectedItem());
+         
+     Id=Integer.parseInt(txaddId.getText());
+     nombre=txaddNombre.getText();
+     apellido=txaddApellido.getText();
+     puesto=txaddPuesto.getText();
+     if (tipo1=="Administrador"){tipousuario=1;}else{tipousuario=2;}
+     nick=txaddNick.getText();
+     password=txaddPassword.getText();
+     if (chbxaddD.isSelected()){d=1;}else {d=0;}
+     if (chbxaddL.isSelected()){l=1;}else {l=0;}
+     if (chbxaddM.isSelected()){m=1;}else {m=0;}
+     if (chbxaddMi.isSelected()){mi=1;}else {mi=0;}
+     if (chbxaddJ.isSelected()){j=1;}else {j=0;}
+     if (chbxaddV.isSelected()){v=1;}else {v=0;}
+     if (chbxaddS.isSelected()){s=1;}else {s=0;}
+
+    String textoNick=txaddNick.getText();      
+    int textoId=Integer.parseInt(txaddId.getText());      
+    
+    int error=0;
+    Empleado indice=listadoEmpleado.getInicial().getValor();                                
+    System.out.print(listadoEmpleado.getCount());
+    
+    for (int i=0; i<listadoEmpleado.getCount();i++)
+    {                            
+        if ((textoNick.contains(indice.getNick()))||(textoId==indice.getId()))
+        {             
+            error=error+1;
+        }
+        indice=listadoEmpleado.getActual().getNext().getValor();
+    }
+    
+    if (error!=0)
+    { 
+        JOptionPane.showMessageDialog(null, "Uusario ya existente","Error", JOptionPane.DEFAULT_OPTION);          
+    }
+    else
+    {
+        Empleado nuevoEmpleado = new Empleado(Id, nombre, apellido, puesto, tipousuario,d,l,m,mi,j,v,s,nick,password);
+        listadoEmpleado.Agregar(nuevoEmpleado);
+        modeloAgregar.addElement(nuevoEmpleado);    
+        JOptionPane.showMessageDialog(null, "Empleado agregado existosamente","Agregar Empleado", JOptionPane.DEFAULT_OPTION);                      
+    }            
+//      JOptionPane.showMessageDialog(null, "Mensaje dentro de la ventana", "Titulo", JOptionPane.DEFAULT_OPTION);                        
+}       
+
+
+
+
+
+
+
 }
 
 

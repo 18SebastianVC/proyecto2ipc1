@@ -141,7 +141,11 @@ public class Empleado {
     public void setId(int Id) {
         this.Id = Id;
     }
-
+    
+    public String toString() {
+        return nombre+" "+apellido;
+        
+    }   
 
     
 }
