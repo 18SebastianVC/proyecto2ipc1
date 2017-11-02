@@ -1,5 +1,4 @@
 package proyecto2;
-
  
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -46,7 +45,6 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 
 /**
- *
  * @author Marcos Sebastián :v
  */
 public class Proyecto2 extends JFrame implements ActionListener {
@@ -60,15 +58,14 @@ public class Proyecto2 extends JFrame implements ActionListener {
     JButton b1;
     //administrador
     JPanel pmenu1;
-    JPanel pcarrusel,pAddEmpleado,pEditEmpleado,pCrearTarea,pEditarTarea1,pReporteTarea;
+    JPanel pcarrusel,pAddEmpleado,pEditarEmpleado,pCrearTarea,pEditarTarea1,pReporteTarea;
     
     JButton b01,b11,b12,b13,b14,b15,b16;//botones del menu administrador
     
     //carrusel
     JButton bcRegresar,banterior,bsiguiente;//botones del carrusel
     JLabel cnombre,capellido,cpuesto,cnombre2,capellido2,cpuesto2;
-    JLabel domingo,lunes,martes,miercoles,jueves,viernes,sabado,dom,lun,mar,mie,jue,vie,sab;        
-    
+    JLabel domingo,lunes,martes,miercoles,jueves,viernes,sabado,dom,lun,mar,mie,jue,vie,sab;            
     Lista listadoEmpleado;    //lista del carrusel
     
     //Agregar empleado: Jpanel : paddEmpleado
@@ -76,11 +73,22 @@ public class Proyecto2 extends JFrame implements ActionListener {
     JButton bRegresar2,bAgregarEmpleado;
     JCheckBox chbxaddD,chbxaddL,chbxaddM,chbxaddMi,chbxaddJ,chbxaddV,chbxaddS;
     JComboBox cbxaddTipo;    
-    JLabel lbaddId,lbaddNombre,lbaddApellido,lbaddPuesto,lbaddTipo,lbaddD,lbaddL,lbaddM,lbaddMi,lbaddJ,lbaddV,lbaddS,lbaddNick,lbaddPassword;        
+    JLabel lbaddId,lbaddNombre,lbaddApellido,lbaddPuesto,lbaddTipo,lbaddNick,lbaddPassword;        
     JList listaEmpleados1;
     JPasswordField txaddPassword;
     JScrollPane barraAgregarE;
     JTextField txaddId,txaddNombre,txaddApellido,txaddPuesto,txaddNick;             
+    
+    //Editar empleado: Jpanel : pEditarEmpleado
+    DefaultListModel modeloEditar = new DefaultListModel();
+    JButton bRegresar3,bEditarEmpleado;
+    JCheckBox chbxEditarD,chbxEditarL,chbxEditarM,chbxEditarMi,chbxEditarJ,chbxEditarV,chbxEditarS;
+    JComboBox cbxEditarId,cbxEditarTipo;    
+    JLabel lbEditarId,lbEditarNombre,lbEditarApellido,lbEditarPuesto,lbEditarTipo,lbEditarNick,lbEditarPassword;        
+    JList listaEmpleados2;
+    JPasswordField txEditarPassword;
+    JScrollPane barraEditarE;
+    JTextField txEditarId,txEditarNombre,txEditarApellido,txEditarPuesto,txEditarNick;             
     
     public Proyecto2()
     {
@@ -168,7 +176,7 @@ b12.setBounds(50,125,135,30);
 b12.addActionListener((ActionListener) this);
 pmenu1.add(b12);
 		
-b13.setText("Edtar Empleado");
+b13.setText("Editar Empleado");
 b13.setBounds(50,175,135,30);			
 b13.addActionListener((ActionListener) this);
 pmenu1.add(b13);
@@ -224,7 +232,7 @@ pmenu1.add(b16);
     
     Empleado empleado= new Empleado(01,"Ludwin","Escobar","Analista",1,0,1,1,1,1,1,0,"lescobar","lud24");
     listadoEmpleado.Agregar(empleado);
-    modeloAgregar.addElement(empleado);    
+    modeloAgregar.addElement(empleado);      
     
     empleado= new Empleado(02,"Aaron","Flores","Desarrollador",2,0,1,1,0,1,1,1,"aflores","pass1");
     listadoEmpleado.Agregar(empleado);
@@ -434,13 +442,6 @@ pmenu1.add(b16);
     lbaddApellido = new JLabel();
     lbaddPuesto = new JLabel();
     lbaddTipo = new JLabel();
-    lbaddD = new JLabel();
-    lbaddL = new JLabel();
-    lbaddM = new JLabel();
-    lbaddMi = new JLabel();
-    lbaddJ = new JLabel();
-    lbaddV = new JLabel();
-    lbaddS = new JLabel();
     lbaddNick = new JLabel();
     lbaddPassword = new JLabel();
     listaEmpleados1 = new JList();
@@ -574,8 +575,169 @@ pmenu1.add(b16);
     bAgregarEmpleado.setBounds(325,275,100,25);			
     bAgregarEmpleado.addActionListener((ActionListener) this);
     pAddEmpleado.add(bAgregarEmpleado);
+    
+ //Panel: Editar Empleado   
+    
+            
+    pEditarEmpleado = new JPanel();
+    bRegresar3= new JButton();
+    bEditarEmpleado= new JButton();
+    chbxEditarD = new JCheckBox();
+    chbxEditarL = new JCheckBox();
+    chbxEditarM = new JCheckBox();
+    chbxEditarMi = new JCheckBox();
+    chbxEditarJ = new JCheckBox();
+    chbxEditarV = new JCheckBox();
+    chbxEditarS = new JCheckBox();
+    cbxEditarId = new JComboBox();
+    cbxEditarTipo = new JComboBox();
+    lbEditarId = new JLabel();
+    lbEditarNombre = new JLabel();
+    lbEditarApellido = new JLabel();
+    lbEditarPuesto = new JLabel();
+    lbEditarTipo = new JLabel();
+    lbEditarNick = new JLabel();
+    lbEditarPassword = new JLabel();
+    listaEmpleados2 = new JList();
+    //txEditarId = new JTextField ();
+    txEditarNombre = new JTextField ();
+    txEditarApellido = new JTextField ();
+    txEditarPuesto = new JTextField ();
+    txEditarNick = new JTextField ();
+    txEditarPassword = new JPasswordField ();
+
+    pEditarEmpleado.setLayout(null);
+    pEditarEmpleado.setVisible(false);
+    
+    
+    bRegresar3.setText("Regresar");
+    bRegresar3.setBounds(20,25,100,30);			
+    bRegresar3.addActionListener((ActionListener) this);
+    pEditarEmpleado.add(bRegresar3);
+
+    lbEditarId.setText("Id: ");
+    lbEditarId.setHorizontalAlignment(SwingConstants.RIGHT);
+    lbEditarId.setFont(subtitulo);
+    pEditarEmpleado.add(lbEditarId);				
+    lbEditarId.setBounds(30,75,100,25);
+	pEditarEmpleado.add(cbxEditarId);
+	cbxEditarId.setBounds(135, 75, 130, 20);
+        
+        Empleado comboEditar=listadoEmpleado.getInicial().getValor();                                
+        for (int i=0; i<listadoEmpleado.count;i++){
+            comboEditar=listadoEmpleado.getActual().getValor();
+            cbxEditarId.addItem(comboEditar.getId());        
+            System.out.println(comboEditar.getNombre());
+            listadoEmpleado.Avanzar();
+        }
+        cbxEditarId.addItem("Empleado");
 
 
+    lbEditarNombre.setText("Nombre: ");	
+    lbEditarNombre.setHorizontalAlignment(SwingConstants.RIGHT);
+    lbEditarNombre.setFont(subtitulo);
+    pEditarEmpleado.add(lbEditarNombre);				
+    lbEditarNombre.setBounds(30,100,100,25);
+	pEditarEmpleado.add(txEditarNombre);
+	txEditarNombre.setBounds(135, 100, 130, 20);
+
+    lbEditarApellido.setText("Apellido: ");	
+    lbEditarApellido.setHorizontalAlignment(SwingConstants.RIGHT);
+    lbEditarApellido.setFont(subtitulo);
+    pEditarEmpleado.add(lbEditarApellido);				
+    lbEditarApellido.setBounds(30,125,100,25);
+	pEditarEmpleado.add(txEditarApellido);
+	txEditarApellido.setBounds(135, 125, 130, 20);
+    
+    lbEditarPuesto.setText("Puesto: ");	
+    lbEditarPuesto.setHorizontalAlignment(SwingConstants.RIGHT);
+    lbEditarPuesto.setFont(subtitulo);
+    pEditarEmpleado.add(lbEditarPuesto);				
+    lbEditarPuesto.setBounds(30,150,100,25);
+	pEditarEmpleado.add(txEditarPuesto);
+	txEditarPuesto.setBounds(135, 150, 130, 20);
+    
+    lbEditarTipo.setText("Tipo Empleado: ");	
+    lbEditarTipo.setHorizontalAlignment(SwingConstants.RIGHT);
+    lbEditarTipo.setFont(subtitulo);
+    pEditarEmpleado.add(lbEditarTipo);				
+    lbEditarTipo.setBounds(20,175,110,25);
+	pEditarEmpleado.add(cbxEditarTipo);
+	cbxEditarTipo.setBounds(135, 175, 130, 20);        
+    
+    lbEditarNick.setText("Nick: ");	
+    lbEditarNick.setHorizontalAlignment(SwingConstants.RIGHT);
+    lbEditarNick.setFont(subtitulo);
+    pEditarEmpleado.add(lbEditarNick);				
+    lbEditarNick.setBounds(30,200,100,25);
+	pEditarEmpleado.add(txEditarNick);
+	txEditarNick.setBounds(135, 200, 130, 20);
+    
+    lbEditarPassword.setText("Password: ");
+    lbEditarPassword.setHorizontalAlignment(SwingConstants.RIGHT);
+    lbEditarPassword.setFont(subtitulo);
+    pEditarEmpleado.add(lbEditarPassword);				
+    lbEditarPassword.setBounds(30,225,100,25);    	
+	pEditarEmpleado.add(txEditarPassword);
+	txEditarPassword.setBounds(135, 225, 130, 20);
+    
+    chbxEditarD.setText("Dom");
+    pEditarEmpleado.add(chbxEditarD);				
+    chbxEditarD.setBounds(50,275,55,25);   
+    
+    chbxEditarL.setText("Lun");
+    pEditarEmpleado.add(chbxEditarL);				
+    chbxEditarL.setBounds(110,275,55,25);
+    
+    chbxEditarM.setText("Mar");
+    pEditarEmpleado.add(chbxEditarM);
+    chbxEditarM.setBounds(170,275,55,25);
+    
+    chbxEditarMi.setText("Mie");
+    pEditarEmpleado.add(chbxEditarMi);
+    chbxEditarMi.setBounds(230,275,55,25);
+    
+    chbxEditarJ.setText("Jue");
+    pEditarEmpleado.add(chbxEditarJ);
+    chbxEditarJ.setBounds(50,300,55,25);
+    
+    chbxEditarV.setText("Vie");
+    pEditarEmpleado.add(chbxEditarV);
+    chbxEditarV.setBounds(110,300,55,25);
+    
+    chbxEditarS.setText("Sab");
+    pEditarEmpleado.add(chbxEditarS);
+    chbxEditarS.setBounds(170,300,55,25);
+    
+/*    listaEmpleados2.setModel(modeloAgregar);		
+    listaEmpleados2.setBorder(BorderFactory.createLineBorder(Color.BLACK));// Añade borde a JList
+    pEditarEmpleado.add(listaEmpleados2);
+    
+    listaEmpleados2.addMouseListener(new MouseAdapter()
+    {
+        public void mouseClicked(MouseEvent me)
+        {
+            if(me.getClickCount() == 2)
+            {// Cuenta la cantidad de clicks para saber si es doble                        
+                mostrarEmpleado();                                                                                                    
+            }
+        }
+    });                
+
+    
+    barraEditarE = new JScrollPane(listaEmpleados2);
+    barraEditarE.setBounds(300,75,150,175);//300,75,150,175     
+    pEditarEmpleado.add(barraEditarE);
+*/    
+    
+    bAgregarEmpleado.setText("Agregar");
+    bAgregarEmpleado.setBounds(325,275,100,25);			
+    bAgregarEmpleado.addActionListener((ActionListener) this);
+    pEditarEmpleado.add(bAgregarEmpleado);
+
+ 
+ 
+     
     }
     
 public void actionPerformed (ActionEvent evento)
@@ -616,11 +778,18 @@ public void actionPerformed (ActionEvent evento)
         plogin.setVisible(true);                
     }
 
-    if (evento.getSource()==b12) //    Carrusel
+    if (evento.getSource()==b12) //    Ir a Agregar Empleado
     {		                
         getContentPane().add(pAddEmpleado);
         pmenu1.setVisible(false);
         pAddEmpleado.setVisible(true);                
+    }
+
+    if (evento.getSource()==b13) //    Ir a Editarar Empleado
+    {		                
+        getContentPane().add(pEditarEmpleado);
+        pmenu1.setVisible(false);
+        pEditarEmpleado.setVisible(true);                
     }
 
     if (evento.getSource()==bcRegresar) //    REGRESAR: de carrusel a menu administrador
@@ -629,9 +798,15 @@ public void actionPerformed (ActionEvent evento)
         pmenu1.setVisible(true);                
     }
 
-    if (evento.getSource()==bRegresar2) //    REGRESAR: de Agregar emleado a menu administrador
+    if (evento.getSource()==bRegresar2) //    REGRESAR: de Agregar empleado a menu administrador
     {		                
         pAddEmpleado.setVisible(false);
+        pmenu1.setVisible(true);                
+    }
+    
+    if (evento.getSource()==bRegresar3) //    REGRESAR: de Editar empleado a menu administrador
+    {		                
+        pEditarEmpleado.setVisible(false);
         pmenu1.setVisible(true);                
     }
     
@@ -753,7 +928,8 @@ private void AgregarEmpleado()
     {
         Empleado nuevoEmpleado = new Empleado(Id, nombre, apellido, puesto, tipousuario,d,l,m,mi,j,v,s,nick,password);
         listadoEmpleado.Agregar(nuevoEmpleado);
-        modeloAgregar.addElement(nuevoEmpleado);    
+        modeloAgregar.addElement(nuevoEmpleado);   
+        cbxEditarTipo.addItem(nuevoEmpleado.getId());        
         JOptionPane.showMessageDialog(null, "Empleado agregado existosamente","Agregar Empleado", JOptionPane.DEFAULT_OPTION);                      
     }            
 //      JOptionPane.showMessageDialog(null, "Mensaje dentro de la ventana", "Titulo", JOptionPane.DEFAULT_OPTION);                        
