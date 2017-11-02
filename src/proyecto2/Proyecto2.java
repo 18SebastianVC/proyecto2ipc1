@@ -86,9 +86,9 @@ public class Proyecto2 extends JFrame implements ActionListener {
     JComboBox cbxEditarId,cbxEditarTipo;    
     JLabel lbEditarId,lbEditarNombre,lbEditarApellido,lbEditarPuesto,lbEditarTipo,lbEditarNick,lbEditarPassword;        
     JList listaEmpleados2;
-    JPasswordField txEditarPassword;
+    JTextField txEditarPassword;
     JScrollPane barraEditarE;
-    JTextField txEditarId,txEditarNombre,txEditarApellido,txEditarPuesto,txEditarNick;             
+    JTextField txEditarNombre,txEditarApellido,txEditarPuesto,txEditarNick;             
     
     public Proyecto2()
     {
@@ -232,15 +232,12 @@ pmenu1.add(b16);
     
     Empleado empleado= new Empleado(01,"Ludwin","Escobar","Analista",1,0,1,1,1,1,1,0,"lescobar","lud24");
     listadoEmpleado.Agregar(empleado);
-    modeloAgregar.addElement(empleado);      
     
     empleado= new Empleado(02,"Aaron","Flores","Desarrollador",2,0,1,1,0,1,1,1,"aflores","pass1");
     listadoEmpleado.Agregar(empleado);
-    modeloAgregar.addElement(empleado);
     
     empleado= new Empleado(03,"Sarah","Aguilar","Desarrollador",2,0,0,1,1,1,1,1,"saguilar","aguilar1");
     listadoEmpleado.Agregar(empleado);
-    modeloAgregar.addElement(empleado);
         
     bcRegresar.setText("Regresar");
     bcRegresar.setBounds(20,20,100,25);			
@@ -566,10 +563,18 @@ pmenu1.add(b16);
     });                
 
     
+    Empleado listaAgregar=listadoEmpleado.getInicial().getValor();                                
+    for (int i=0; i<listadoEmpleado.count;i++)//agregar los empleados al modelo lista
+    {
+        listaAgregar=listadoEmpleado.getActual().getValor();            
+        modeloAgregar.addElement(listaAgregar);
+        listadoEmpleado.Avanzar();
+    }
+    
     barraAgregarE = new JScrollPane(listaEmpleados1);
     barraAgregarE.setBounds(300,75,150,175);//300,75,150,175     
     pAddEmpleado.add(barraAgregarE);
-    
+        
     
     bAgregarEmpleado.setText("Agregar");
     bAgregarEmpleado.setBounds(325,275,100,25);			
@@ -599,12 +604,11 @@ pmenu1.add(b16);
     lbEditarNick = new JLabel();
     lbEditarPassword = new JLabel();
     listaEmpleados2 = new JList();
-    //txEditarId = new JTextField ();
     txEditarNombre = new JTextField ();
     txEditarApellido = new JTextField ();
     txEditarPuesto = new JTextField ();
     txEditarNick = new JTextField ();
-    txEditarPassword = new JPasswordField ();
+    txEditarPassword = new JTextField ();
 
     pEditarEmpleado.setLayout(null);
     pEditarEmpleado.setVisible(false);
@@ -623,16 +627,44 @@ pmenu1.add(b16);
 	pEditarEmpleado.add(cbxEditarId);
 	cbxEditarId.setBounds(135, 75, 130, 20);
         
-        Empleado comboEditar=listadoEmpleado.getInicial().getValor();                                
+        Empleado comboEditar=listadoEmpleado.getInicial().getValor();//agrega los id al combo
         for (int i=0; i<listadoEmpleado.count;i++){
             comboEditar=listadoEmpleado.getActual().getValor();
             cbxEditarId.addItem(comboEditar.getId());        
-            System.out.println(comboEditar.getNombre());
             listadoEmpleado.Avanzar();
-        }
-        cbxEditarId.addItem("Empleado");
-
-
+        }        
+        cbxEditarId.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) 
+            {                
+                Empleado indiceComboEditar=listadoEmpleado.getInicial().getValor();                                
+                for (int i=0; i<listadoEmpleado.getCount();i++)
+                {                            
+                    indiceComboEditar = listadoEmpleado.getActual().getValor();
+                    if (Integer.parseInt(cbxEditarId.getSelectedItem().toString())==indiceComboEditar.getId())
+                    {             
+                        txEditarNombre.setText(listadoEmpleado.getActual().getValor().getNombre());
+                        txEditarApellido.setText(listadoEmpleado.getActual().getValor().getApellido());
+                        txEditarPuesto.setText(listadoEmpleado.getActual().getValor().getPuesto());
+                        
+                        String tipoEditar;
+                        if(listadoEmpleado.getActual().getValor().getTipousuario()==1){ tipoEditar="Administrador";}else{tipoEditar="Empleado";}
+                        cbxEditarTipo.setSelectedItem(tipoEditar);
+                        txEditarNick.setText(listadoEmpleado.getActual().getValor().getNick());
+                        txEditarPassword.setText(listadoEmpleado.getActual().getValor().getPassword());
+                        
+                        if (listadoEmpleado.getActual().getValor().getD()==1){chbxEditarD.setSelected(true);} else {chbxEditarD.setSelected(false);} 
+                        if (listadoEmpleado.getActual().getValor().getL()==1){chbxEditarL.setSelected(true);} else {chbxEditarL.setSelected(false);} 
+                        if (listadoEmpleado.getActual().getValor().getM()==1){chbxEditarM.setSelected(true);} else {chbxEditarM.setSelected(false);} 
+                        if (listadoEmpleado.getActual().getValor().getMi()==1){chbxEditarMi.setSelected(true);} else {chbxEditarMi.setSelected(false);} 
+                        if (listadoEmpleado.getActual().getValor().getJ()==1){chbxEditarJ.setSelected(true);} else {chbxEditarJ.setSelected(false);} 
+                        if (listadoEmpleado.getActual().getValor().getV()==1){chbxEditarV.setSelected(true);} else {chbxEditarV.setSelected(false);} 
+                        if (listadoEmpleado.getActual().getValor().getS()==1){chbxEditarS.setSelected(true);} else {chbxEditarS.setSelected(false);}                                                 
+                    }
+                    listadoEmpleado.Avanzar();
+                }
+            }
+        });
+        
     lbEditarNombre.setText("Nombre: ");	
     lbEditarNombre.setHorizontalAlignment(SwingConstants.RIGHT);
     lbEditarNombre.setFont(subtitulo);
@@ -664,6 +696,9 @@ pmenu1.add(b16);
     lbEditarTipo.setBounds(20,175,110,25);
 	pEditarEmpleado.add(cbxEditarTipo);
 	cbxEditarTipo.setBounds(135, 175, 130, 20);        
+        cbxEditarTipo.addItem("Administrador");
+        cbxEditarTipo.addItem("Empleado");
+        
     
     lbEditarNick.setText("Nick: ");	
     lbEditarNick.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -708,32 +743,11 @@ pmenu1.add(b16);
     chbxEditarS.setText("Sab");
     pEditarEmpleado.add(chbxEditarS);
     chbxEditarS.setBounds(170,300,55,25);
-    
-/*    listaEmpleados2.setModel(modeloAgregar);		
-    listaEmpleados2.setBorder(BorderFactory.createLineBorder(Color.BLACK));// Añade borde a JList
-    pEditarEmpleado.add(listaEmpleados2);
-    
-    listaEmpleados2.addMouseListener(new MouseAdapter()
-    {
-        public void mouseClicked(MouseEvent me)
-        {
-            if(me.getClickCount() == 2)
-            {// Cuenta la cantidad de clicks para saber si es doble                        
-                mostrarEmpleado();                                                                                                    
-            }
-        }
-    });                
-
-    
-    barraEditarE = new JScrollPane(listaEmpleados2);
-    barraEditarE.setBounds(300,75,150,175);//300,75,150,175     
-    pEditarEmpleado.add(barraEditarE);
-*/    
-    
-    bAgregarEmpleado.setText("Agregar");
-    bAgregarEmpleado.setBounds(325,275,100,25);			
-    bAgregarEmpleado.addActionListener((ActionListener) this);
-    pEditarEmpleado.add(bAgregarEmpleado);
+        
+    bEditarEmpleado.setText("Editar");
+    bEditarEmpleado.setBounds(325,275,100,25);			
+    bEditarEmpleado.addActionListener((ActionListener) this);
+    pEditarEmpleado.add(bEditarEmpleado);
 
  
  
@@ -752,13 +766,14 @@ public void actionPerformed (ActionEvent evento)
         Empleado indice=listadoEmpleado.getInicial().getValor();                                
         for (int i=1; i<=listadoEmpleado.getCount();i++)
         {                            
+            indice = listadoEmpleado.getActual().getValor();
             if ((texto.contains(indice.getNick()))&&(texto2.contains(indice.getPassword())))
             { */                                       
                 getContentPane().add(pmenu1);
                 pmenu1.setVisible(true);
                 plogin.setVisible(false);                                    
 /*            }                      
-            indice=listadoEmpleado.getActual().getNext().getValor();
+            listadoEmpleado.Avanzar();
         }
         if (plogin.isVisible())
         {                                        
@@ -909,15 +924,15 @@ private void AgregarEmpleado()
     
     int error=0;
     Empleado indice=listadoEmpleado.getInicial().getValor();                                
-    System.out.print(listadoEmpleado.getCount());
-    
+
     for (int i=0; i<listadoEmpleado.getCount();i++)
     {                            
+        indice = listadoEmpleado.getActual().getValor();
         if ((textoNick.contains(indice.getNick()))||(textoId==indice.getId()))
         {             
             error=error+1;
         }
-        indice=listadoEmpleado.getActual().getNext().getValor();
+        listadoEmpleado.Avanzar();
     }
     
     if (error!=0)
