@@ -30,6 +30,7 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.Vector;
 import javax.swing.BorderFactory;
@@ -80,15 +81,26 @@ public class Proyecto2 extends JFrame implements ActionListener {
     JTextField txaddId,txaddNombre,txaddApellido,txaddPuesto,txaddNick;             
     
     //Editar empleado: Jpanel : pEditarEmpleado
-    DefaultListModel modeloEditar = new DefaultListModel();
+    //DefaultListModel modeloEditar = new DefaultListModel();
     JButton bRegresar3,bEditarEmpleado;
     JCheckBox chbxEditarD,chbxEditarL,chbxEditarM,chbxEditarMi,chbxEditarJ,chbxEditarV,chbxEditarS;
     JComboBox cbxEditarId,cbxEditarTipo;    
     JLabel lbEditarId,lbEditarNombre,lbEditarApellido,lbEditarPuesto,lbEditarTipo,lbEditarNick,lbEditarPassword;        
-    JList listaEmpleados2;
+    //JList listaEmpleados2;
     JTextField txEditarPassword;
     JScrollPane barraEditarE;
     JTextField txEditarNombre,txEditarApellido,txEditarPuesto,txEditarNick;             
+
+    //Agregar tarea: Jpanel : pCrearTarea
+    Lista listadoTareas;    //lista de tareas
+    DefaultListModel modeloCrearTarea = new DefaultListModel();
+    JButton bRegresar4,bCrearTarea;
+    JComboBox cbxCrearTareaEmpleado;    
+    JLabel lbCrearTareaNombre,lbCrearTareaDesc,lbCrearTareaFechaI,lbCrearTareaDuracion,lbCrearTareaEmpleado;//,lbCrearTareaPorcentaje,lbCrearTareaEstado;        
+    JList listaTareas1;
+    JScrollPane barraCrearTarea;
+    JTextField txCrearTareaNombre,txCrearTareaDesc,txCrearTareaDuracion;//,txCrearTareaPorcentaje,txCrearTareaEstado;
+    //JDateChooser dcCrearTareaFechaI;
     
     public Proyecto2()
     {
@@ -603,7 +615,7 @@ pmenu1.add(b16);
     lbEditarTipo = new JLabel();
     lbEditarNick = new JLabel();
     lbEditarPassword = new JLabel();
-    listaEmpleados2 = new JList();
+//    listaEmpleados2 = new JList();
     txEditarNombre = new JTextField ();
     txEditarApellido = new JTextField ();
     txEditarPuesto = new JTextField ();
@@ -749,7 +761,122 @@ pmenu1.add(b16);
     bEditarEmpleado.addActionListener((ActionListener) this);
     pEditarEmpleado.add(bEditarEmpleado);
 
- 
+ /*
+//Panel: Crear Nueva tarea
+    
+    
+    
+    listadoTareas= new Lista();
+    pCrearTarea = new JPanel();
+    bRegresar4= new JButton();
+    bCrearTarea= new JButton();
+    cbxCrearTareaEmpleado = new JComboBox();
+    lbCrearTareaNombre = new JLabel();
+    lbCrearTareaDesc = new JLabel();
+    lbCrearTareaFechaI = new JLabel();
+    lbCrearTareaDuracion = new JLabel();
+    lbCrearTareaEmpleado = new JLabel();
+    listaTareas1 = new JList();    
+    txCrearTareaNombre = new JTextField ();
+    txCrearTareaDesc = new JTextField ();
+    txCrearTareaDuracion = new JTextField ();
+
+    Tarea tarea= new Tarea("Limpiar","piso","Juan",1,0);
+    listadoTareas.Agregar(empleado);
+    
+    pCrearTarea.setLayout(null);
+    pCrearTarea.setVisible(false);
+    
+    
+    bRegresar4.setText("Regresar");
+    bRegresar4.setBounds(20,25,100,30);			
+    bRegresar4.addActionListener((ActionListener) this);
+    pCrearTarea.add(bRegresar4);
+
+    lbCrearTareaNombre.setText("Nombre de la tarea: ");
+    lbCrearTareaNombre.setHorizontalAlignment(SwingConstants.RIGHT);
+    lbCrearTareaNombre.setFont(subtitulo);
+    pCrearTarea.add(lbCrearTareaNombre);				
+    lbCrearTareaNombre.setBounds(30,75,100,25);
+	pCrearTarea.add(txCrearTareaNombre);
+	txCrearTareaNombre.setBounds(135, 75, 130, 20);
+
+    lbCrearTareaDesc.setText("Descripcion de la tarea: ");
+    lbCrearTareaDesc.setHorizontalAlignment(SwingConstants.RIGHT);
+    lbCrearTareaDesc.setFont(subtitulo);
+    pCrearTarea.add(lbCrearTareaDesc);				
+    lbCrearTareaNombre.setBounds(30,75,100,25);
+	pCrearTarea.add(txCrearTareaDesc);
+	txCrearTareaDesc.setBounds(135, 75, 130, 20);
+    
+    lbCrearTareaFechaI.setText("Fecha Inicio: ");
+    lbCrearTareaFechaI.setHorizontalAlignment(SwingConstants.RIGHT);
+    lbCrearTareaFechaI.setFont(subtitulo);
+    pCrearTarea.add(lbCrearTareaFechaI);				
+    lbCrearTareaFechaI.setBounds(30,75,100,25);
+	pCrearTarea.add(txCrearTareaFechaI);
+	txCrearTareaFechaI.setBounds(135, 75, 130, 20);
+    
+    lbCrearTareaDuracion.setText("Duracion: ");
+    lbCrearTareaDuracion.setHorizontalAlignment(SwingConstants.RIGHT);
+    lbCrearTareaDuracion.setFont(subtitulo);
+    pCrearTarea.add(lbCrearTareaDuracion);				
+    lbCrearTareaDuracion.setBounds(30,75,100,25);
+	pCrearTarea.add(txCrearTareaDuracion);
+	txCrearTareaDuracion.setBounds(135, 75, 130, 20);
+    
+    lbCrearTareaEmpleado.setText("Empleado: ");	
+    lbCrearTareaEmpleado.setHorizontalAlignment(SwingConstants.RIGHT);
+    lbCrearTareaEmpleado.setFont(subtitulo);
+    pCrearTarea.add(lbCrearTareaEmpleado);				
+    lbCrearTareaEmpleado.setBounds(20,175,110,25);
+	pCrearTarea.add(cbxCrearTareaEmpleado);
+	cbxCrearTareaEmpleado.setBounds(135, 75, 130, 20);
+        
+        Empleado comboCrearTareaEmpleado=listadoEmpleado.getInicial().getValor();//agrega los empleados al combo
+        for (int i=0; i<listadoEmpleado.count;i++){
+            comboCrearTareaEmpleado=listadoEmpleado.getActual().getValor();
+            cbxCrearTareaEmpleado.addItem(comboCrearTareaEmpleado);        
+            listadoEmpleado.Avanzar();
+        }        
+            
+    listaTareas1.setModel(modeloCrearTarea);		
+    listaTareas1.setBorder(BorderFactory.createLineBorder(Color.BLACK));// Añade borde a JList
+    pCrearTarea.add(listaTareas1);
+    
+    listaTareas1.addMouseListener(new MouseAdapter()
+    {
+        public void mouseClicked(MouseEvent me)
+        {
+            if(me.getClickCount() == 2)
+            {// Cuenta la cantidad de clicks para saber si es doble                        
+                //mostrarTarea();                                                                                                    
+            }
+        }
+    });                
+
+    
+    Tarea listaNuevaTarea=listadoTarea.getInicial().getValor();                                
+    for (int i=0; i<listadoTarea.count;i++)//agregar las tareas al modelo lista
+    {
+        listaAgregar=listadoEmpleado.getActual().getValor();            
+        modeloAgregar.addElement(listaAgregar);
+        listadoEmpleado.Avanzar();
+    }
+    
+    barraCrearTarea = new JScrollPane(listaTareas1);
+    barraCrearTarea.setBounds(300,75,150,175);//300,75,150,175     
+    pCrearTarea.add(barraCrearTarea);
+        
+    
+    bCrearTarea.setText("Crear");
+    bCrearTarea.setBounds(325,275,100,25);			
+    bCrearTarea.addActionListener((ActionListener) this);
+    pCrearTarea.add(bCrearTarea);
+    
+    
+    
+*/
  
      
     }
