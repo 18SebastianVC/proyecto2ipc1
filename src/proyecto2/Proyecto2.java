@@ -745,7 +745,7 @@ pmenu1.add(b16);
     chbxEditarS.setBounds(170,300,55,25);
         
     bEditarEmpleado.setText("Editar");
-    bEditarEmpleado.setBounds(325,275,100,25);			
+    bEditarEmpleado.setBounds(325,150,100,25);			
     bEditarEmpleado.addActionListener((ActionListener) this);
     pEditarEmpleado.add(bEditarEmpleado);
 
@@ -859,6 +859,11 @@ public void actionPerformed (ActionEvent evento)
     {		                
         AgregarEmpleado();
     }
+
+    if (evento.getSource()==bEditarEmpleado) //    Editar los datos de un empleado
+    {		                
+        EditarEmpleado();
+    }
                 
                 
 }
@@ -944,12 +949,39 @@ private void AgregarEmpleado()
         Empleado nuevoEmpleado = new Empleado(Id, nombre, apellido, puesto, tipousuario,d,l,m,mi,j,v,s,nick,password);
         listadoEmpleado.Agregar(nuevoEmpleado);
         modeloAgregar.addElement(nuevoEmpleado);   
-        cbxEditarTipo.addItem(nuevoEmpleado.getId());        
+        cbxEditarId.addItem(nuevoEmpleado.getId());        
         JOptionPane.showMessageDialog(null, "Empleado agregado existosamente","Agregar Empleado", JOptionPane.DEFAULT_OPTION);                      
     }            
 //      JOptionPane.showMessageDialog(null, "Mensaje dentro de la ventana", "Titulo", JOptionPane.DEFAULT_OPTION);                        
 }       
 
+private void EditarEmpleado()
+{                 
+    Empleado indiceEditar=listadoEmpleado.getInicial().getValor();                                
+    for (int i=0; i<listadoEmpleado.getCount();i++)
+    {                            
+        indiceEditar = listadoEmpleado.getActual().getValor();
+        if (Integer.parseInt(cbxEditarId.getSelectedItem().toString())==indiceEditar.getId())
+        {             
+            listadoEmpleado.getActual().getValor().setNombre(txEditarNombre.getText());
+            listadoEmpleado.getActual().getValor().setApellido(txEditarApellido.getText());
+            listadoEmpleado.getActual().getValor().setPuesto(txEditarPuesto.getText());
+            if(cbxEditarTipo.getSelectedItem()=="Administrador"){ listadoEmpleado.getActual().getValor().setTipousuario(1);}else { listadoEmpleado.getActual().getValor().setTipousuario(2);}            
+            listadoEmpleado.getActual().getValor().setNick(txEditarNick.getText());
+            listadoEmpleado.getActual().getValor().setPassword(txEditarPassword.getText());
+            
+            if (chbxEditarD.isSelected()) {listadoEmpleado.getActual().getValor().setD(1);}else{listadoEmpleado.getActual().getValor().setD(0);}
+            if (chbxEditarL.isSelected()) {listadoEmpleado.getActual().getValor().setL(1);}else{listadoEmpleado.getActual().getValor().setL(0);}
+            if (chbxEditarM.isSelected()) {listadoEmpleado.getActual().getValor().setM(1);}else{listadoEmpleado.getActual().getValor().setM(0);}
+            if (chbxEditarMi.isSelected()) {listadoEmpleado.getActual().getValor().setMi(1);}else{listadoEmpleado.getActual().getValor().setMi(0);}
+            if (chbxEditarJ.isSelected()) {listadoEmpleado.getActual().getValor().setJ(1);}else{listadoEmpleado.getActual().getValor().setJ(0);}
+            if (chbxEditarV.isSelected()) {listadoEmpleado.getActual().getValor().setV(1);}else{listadoEmpleado.getActual().getValor().setV(0);}
+            if (chbxEditarS.isSelected()) {listadoEmpleado.getActual().getValor().setS(1);}else{listadoEmpleado.getActual().getValor().setS(0);}
+        }
+        listadoEmpleado.Avanzar();
+        }
+      JOptionPane.showMessageDialog(null, "Datos Actualizados", "Editar Empleado", JOptionPane.DEFAULT_OPTION);                        
+}       
 
 
 
