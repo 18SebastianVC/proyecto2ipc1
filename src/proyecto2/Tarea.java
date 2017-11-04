@@ -7,6 +7,24 @@ import java.util.Date;
  */
 public class Tarea {
     private String NombreTarea,DescTarea,EmpleadoTarea;
+    private int Duracion,Porcentaje;
+    private Date FechaI,FechaF;
+
+    public Date getFechaI() {
+        return FechaI;
+    }
+
+    public void setFechaI(Date FechaI) {
+        this.FechaI = FechaI;
+    }
+
+    public Date getFechaF() {
+        return FechaF;
+    }
+
+    public void setFechaF(Date FechaF) {
+        this.FechaF = FechaF;
+    }
 
     public String getNombreTarea() {
         return NombreTarea;
@@ -47,18 +65,16 @@ public class Tarea {
     public void setPorcentaje(int Porcentaje) {
         this.Porcentaje = Porcentaje;
     }
-    private int Duracion,Porcentaje;
-    //Date FechaI,FechaF;
 
-    public Tarea (String NombreTarea,String DescTarea,String EmpleadoTarea,int Duracion, int Porcentaje)
+    public Tarea (String NombreTarea,String DescTarea,String EmpleadoTarea,int Duracion, int Porcentaje, Date FechaI, Date FechaF)
     {
         this.NombreTarea=NombreTarea;
         this.DescTarea=DescTarea;
         this.EmpleadoTarea=EmpleadoTarea;
         this.Duracion=Duracion;
         this.Porcentaje=Porcentaje;
-        //this.FechaI=FechaI;
-        //this.FechaF=FechaF;
+        this.FechaI=FechaI;
+        this.FechaF=FechaF;
         
     }
 

@@ -1,5 +1,7 @@
 package proyecto2;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Marcos Sebastián
@@ -22,6 +24,25 @@ public class Lista {
         Actual=Actual.getPrevious();
     }
     
+    public void Eliminar()
+    {
+        if (count==0)
+        {
+            JOptionPane.showMessageDialog(null, "Lista Vacía", "Error", JOptionPane.DEFAULT_OPTION);                        
+        }
+        
+        if (Actual==Inicial)
+        {
+            Inicial=Inicial.getNext();
+        }
+        if (Actual==Final)
+        {
+            Final=Final.getPrevious();
+        }
+        Actual.getPrevious().setNext(Actual.getNext());
+        Actual.getNext().setPrevious(Actual.getPrevious());
+        Actual=null;        
+    }
     
     
     public int getCount() {

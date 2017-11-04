@@ -8,7 +8,64 @@ public class Empleado {
     
     private int Id;
     private String nombre,apellido,puesto;
-    private int tipousuario,d,l,m,mi,j,v,s;
+    private int tipousuario;
+    private boolean d,l,m,mi,j,v,s;
+
+    public boolean isD() {
+        return d;
+    }
+
+    public void setD(boolean d) {
+        this.d = d;
+    }
+
+    public boolean isL() {
+        return l;
+    }
+
+    public void setL(boolean l) {
+        this.l = l;
+    }
+
+    public boolean isM() {
+        return m;
+    }
+
+    public void setM(boolean m) {
+        this.m = m;
+    }
+
+    public boolean isMi() {
+        return mi;
+    }
+
+    public void setMi(boolean mi) {
+        this.mi = mi;
+    }
+
+    public boolean isJ() {
+        return j;
+    }
+
+    public void setJ(boolean j) {
+        this.j = j;
+    }
+
+    public boolean isV() {
+        return v;
+    }
+
+    public void setV(boolean v) {
+        this.v = v;
+    }
+
+    public boolean isS() {
+        return s;
+    }
+
+    public void setS(boolean s) {
+        this.s = s;
+    }
     private String nick,password;
 
     public String getNombre() {
@@ -43,61 +100,6 @@ public class Empleado {
         this.tipousuario = tipousuario;
     }
 
-    public int getD() {
-        return d;
-    }
-
-    public void setD(int d) {
-        this.d = d;
-    }
-
-    public int getL() {
-        return l;
-    }
-
-    public void setL(int l) {
-        this.l = l;
-    }
-
-    public int getM() {
-        return m;
-    }
-
-    public void setM(int m) {
-        this.m = m;
-    }
-
-    public int getMi() {
-        return mi;
-    }
-
-    public void setMi(int mi) {
-        this.mi = mi;
-    }
-
-    public int getJ() {
-        return j;
-    }
-
-    public void setJ(int j) {
-        this.j = j;
-    }
-
-    public int getV() {
-        return v;
-    }
-
-    public void setV(int v) {
-        this.v = v;
-    }
-
-    public int getS() {
-        return s;
-    }
-
-    public void setS(int s) {
-        this.s = s;
-    }
 
     public String getNick() {
         return nick;
@@ -115,7 +117,7 @@ public class Empleado {
         this.password = password;
     }
 
-    public Empleado (int Id,String nombre, String apellido, String puesto, int tipousuario,int d, int l, int m, int mi, int j, int v, int s, String nick, String password)
+    public Empleado (int Id,String nombre, String apellido, String puesto, int tipousuario,boolean d, boolean l, boolean m, boolean mi, boolean j, boolean v, boolean s, String nick, String password)
     {
         this.Id =Id;  
         this.nombre =nombre;  
