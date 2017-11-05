@@ -94,7 +94,8 @@ public class Proyecto2 extends JFrame implements ActionListener {
     JLabel lbusuario, lbpassword;
     JTextField txusuario;
     JPasswordField textopassword;
-    JButton b1;
+    JButton b1;//boton de login
+    
     //administrador
     JFileChooser explorar;
     File archivoEmpleado;//contiene el archivo csv de empleados
@@ -105,6 +106,7 @@ public class Proyecto2 extends JFrame implements ActionListener {
     
     //Root
     JButton bRootRegresar,bCargar, bEliminar;//botones del menu ROOT
+    
     
     //carrusel
     JButton bcRegresar, banterior, bsiguiente;//botones del carrusel
@@ -199,6 +201,31 @@ public class Proyecto2 extends JFrame implements ActionListener {
         plogin.add(b1);
         b1.setBounds(175, 140, 90, 25);
 
+//panel menu ROOT: pSuper
+//-------------------
+        pSuper = new JPanel();
+        pSuper.setLayout(null);
+        pSuper.setVisible(false);
+
+        bRootRegresar = new JButton();
+        bCargar = new JButton();
+        bEliminar = new JButton();
+
+        bRootRegresar.setText("Regresar");
+        bRootRegresar.setBounds(20, 25, 100, 30);
+        bRootRegresar.addActionListener((ActionListener) this);
+        pSuper.add(bRootRegresar);
+
+        bCargar.setText("Nuevo empleado");
+        bCargar.setBounds(50, 125, 135, 30);
+        bCargar.addActionListener((ActionListener) this);
+        pSuper.add(bCargar);
+
+        bEliminar.setText("Editar Empleado");
+        bEliminar.setBounds(50, 175, 135, 30);
+        bEliminar.addActionListener((ActionListener) this);
+        pSuper.add(bEliminar);
+        
 //panel menu administrador: 1
 //-------------------
         pmenu1 = new JPanel();
@@ -281,15 +308,15 @@ public class Proyecto2 extends JFrame implements ActionListener {
         vie = new JLabel();
         sab = new JLabel();
 
-        Empleado empleado = new Empleado(01, "Ludwin", "Escobar", "Analista", 1, false, true, true, true, true, true, false, "lescobar", "lud24");
+        Empleado empleado = new Empleado(0, "Sebastián", "Cabrera", "Super Usuario", 1, false, true, true, true, true, true, false, "SebasVGC", "pass");
         listadoEmpleado.Agregar(empleado);
-
+/*
         empleado = new Empleado(02, "Aaron", "Flores", "Desarrollador", 2, false, true, true, false, true, true, true, "aflores", "passtrue");
         listadoEmpleado.Agregar(empleado);
 
         empleado = new Empleado(03, "Sarah", "Aguilar", "Desarrollador", 2, false, false, true, true, true, true, true, "saguilar", "aguilartrue");
         listadoEmpleado.Agregar(empleado);
-
+*/
         bcRegresar.setText("Regresar");
         bcRegresar.setBounds(20, 20, 100, 25);
         bcRegresar.addActionListener((ActionListener) this);
@@ -319,6 +346,7 @@ public class Proyecto2 extends JFrame implements ActionListener {
         domingo.setOpaque(true);
         pcarrusel.add(domingo);
         domingo.setBounds(70, 145, 50, 25);
+
         if (listadoEmpleado.getActual().getValor().isD()) {
             dom.setText("X");
         } else {
@@ -936,13 +964,67 @@ public class Proyecto2 extends JFrame implements ActionListener {
         bCrearTarea.addActionListener((ActionListener) this);
         pCrearTarea.add(bCrearTarea);
 
-/*        JFileChooser chooser = new JFileChooser();
+    }
+
+    public void actionPerformed(ActionEvent evento) {
+
+        if (evento.getSource() == b1) //    LOGIN 
+        {
+            String texto, texto2;
+            texto = txusuario.getText();
+            texto2 = textopassword.getText();
+            if ((texto.contains("ROOT"))&&(texto2.contains("201612190")))//si es ROOT muestra el menu exclusivo Super Usuario
+        {
+            getContentPane().add(pSuper);
+            pSuper.setVisible(true);
+            plogin.setVisible(false);
+            }
+        else//si no es Super usuario, muestra menu de administrador o de Empleado
+        {    
+            Empleado indice=listadoEmpleado.getInicial().getValor();
+            listadoEmpleado.Avanzar();
+            for (int i=1; i<listadoEmpleado.getCount();i++)
+            {                            
+                indice = listadoEmpleado.getActual().getValor();
+                if ((texto.contains(indice.getNick()))&&(texto2.contains(indice.getPassword())))
+                {
+                    if(indice.getTipousuario()==1)//si es Administrador, muestra menu1
+                    {
+                        getContentPane().add(pmenu1);
+                        pmenu1.setVisible(true);
+                        plogin.setVisible(false);
+                        System.out.println("Administrador");
+                    }
+                    else//si es Empleado, muestra el menu 2
+                    {
+                        getContentPane().add(pmenu1);
+                        pmenu1.setVisible(true);
+                        plogin.setVisible(false);
+                        System.out.println("Empleado");
+                    }
+                }                      
+                listadoEmpleado.Avanzar();
+            }
+        }
+        if (plogin.isVisible())
+        {                                        
+            JOptionPane.showMessageDialog(null, "Usuario y/o contraseña incorrecto(s)");
+        }
+        }
+        if (evento.getSource() == bRootRegresar) //    REGRESAR de Root a login
+        {
+            pSuper.setVisible(false);
+            plogin.setVisible(true);
+        }
+
+        if (evento.getSource() == bCargar) //    Cargar los datos
+        {
+        JFileChooser chooser = new JFileChooser();
         //FileNameExtensionFilter filter = new FileNameExtensionFilter("csv");
         //chooser.setFileFilter(filter);
         int returnVal = chooser.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
 
-            System.out.println("You chose to open this file: " + chooser.getSelectedFile());
             archivoEmpleado = chooser.getSelectedFile();
 
             BufferedReader reader = null;
@@ -977,9 +1059,9 @@ public class Proyecto2 extends JFrame implements ActionListener {
                     Empleado nuevoEmpleado = new Empleado(Id, Nombre, Apellido, Puesto, Tipo, D, L, M, Mi, J, V, S, Nick, Password);
                     listadoEmpleado.Agregar(nuevoEmpleado);
                     modeloAgregar.addElement(nuevoEmpleado);
-                    cbxEditarId.addItem(nuevoEmpleado.getId());
-
+                    cbxEditarId.addItem(nuevoEmpleado.getId());                    
                 }
+                JOptionPane.showMessageDialog(null, "Datos Cargados");
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -992,59 +1074,13 @@ public class Proyecto2 extends JFrame implements ActionListener {
                 } catch (IOException e) {
                 }
             }
-        }*/
-
-
-
-
-
-
-    }
-
-    public void actionPerformed(ActionEvent evento) {
-
-        if (evento.getSource() == b1) //    LOGIN 
-        {
-            String texto, texto2;
-            texto = txusuario.getText();
-            texto2 = textopassword.getText();
-            /*if ((texto.contains("ROOT"))&&(texto2.contains("201612190")))//si es ROOT muestra el menu exclusivo Super Usuario
-        {*/
-            getContentPane().add(pmenu1);
-            pmenu1.setVisible(true);
-            plogin.setVisible(false);
-            System.out.println("Super Usuario");
-            /*        }
-        else//si no es Super usuario, muestra menu de administrador o de Empleado
-        {    
-            Empleado indice=listadoEmpleado.getInicial().getValor();                                
-            for (int i=1; i<=listadoEmpleado.getCount();i++)
-            {                            
-                indice = listadoEmpleado.getActual().getValor();
-                if ((texto.contains(indice.getNick()))&&(texto2.contains(indice.getPassword())))
-                {
-                    if(indice.getTipousuario()==1)//si es Administrador, muestra menu1
-                    {
-                        getContentPane().add(pmenu1);
-                        pmenu1.setVisible(true);
-                        plogin.setVisible(false);
-                        System.out.println("Administrador");
-                    }
-                    else//si es Empleado, muestra el menu 2
-                    {
-                        getContentPane().add(pmenu1);
-                        pmenu1.setVisible(true);
-                        plogin.setVisible(false);
-                        System.out.println("Empleado");
-                    }
-                }                      
-                listadoEmpleado.Avanzar();
-            }
         }
-        if (plogin.isVisible())
-        {                                        
-            JOptionPane.showMessageDialog(null, "Usuario y/o contraseña incorrecto(s)");
-        }*/
+
+        }
+
+        if (evento.getSource() == bEliminar) //    Eliminar los datos
+        {
+
         }
 
         if (evento.getSource() == b11) //    Carrusel
@@ -1310,12 +1346,35 @@ public class Proyecto2 extends JFrame implements ActionListener {
             listadoEmpleado.Agregar(nuevoEmpleado);
             modeloAgregar.addElement(nuevoEmpleado);
             cbxEditarId.addItem(nuevoEmpleado.getId());
-/*
+
             BufferedWriter output = null;
             try {
 
                 output = new BufferedWriter(new FileWriter(archivoEmpleado, false));//false sobre escribe el archivo
-                output.write("Id,nombre,apellido,puesto,tipousuario,d,l,m,mi,j,v,s,nick,contraseña");
+                output.write("Id,nombre,apellido,puesto,tipousuario,d,l,m,mi,j,v,s,nick,contraseña");                
+                
+/*                Empleado indice2 = listadoEmpleado.getInicial().getValor();
+                for (int i = 0; i < listadoEmpleado.getCount(); i++) {
+                            indice2 = listadoEmpleado.getActual().getValor();
+                            String der = String.valueOf(indice2.getId());
+                                
+                            output.write(indice2.getId()+","+
+                            indice2.getNombre()+","+
+                            indice2.getApellido()+","+
+                            indice2.getPuesto()+","+
+                            indice2.getTipousuario()+","+
+                            indice2.isD()+","+
+                            indice2.isL()+","+
+                            indice2.isM()+","+
+                            indice2.isMi()+","+
+                            indice2.isJ()+","+
+                            indice2.isV()+","+
+                            indice2.isS()+","+
+                            indice2.getNick()+","+
+                            indice2.getPassword());
+                listadoEmpleado.Avanzar();
+                }*/
+                
                 //metodo para llenar
             } catch (IOException e) {
                 e.printStackTrace();
@@ -1327,7 +1386,7 @@ public class Proyecto2 extends JFrame implements ActionListener {
                         Logger.getLogger(Proyecto2.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
-            }*/
+            }
             JOptionPane.showMessageDialog(null, "Empleado agregado existosamente", "Agregar Empleado", JOptionPane.DEFAULT_OPTION);
         }
 //      JOptionPane.showMessageDialog(null, "Mensaje dentro de la ventana", "Titulo", JOptionPane.DEFAULT_OPTION);                        
