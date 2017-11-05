@@ -62,7 +62,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.Vector;
@@ -216,12 +218,12 @@ public class Proyecto2 extends JFrame implements ActionListener {
         bRootRegresar.addActionListener((ActionListener) this);
         pSuper.add(bRootRegresar);
 
-        bCargar.setText("Nuevo empleado");
+        bCargar.setText("Cargar Datos");
         bCargar.setBounds(50, 125, 135, 30);
         bCargar.addActionListener((ActionListener) this);
         pSuper.add(bCargar);
 
-        bEliminar.setText("Editar Empleado");
+        bEliminar.setText("Eliminar Datos");
         bEliminar.setBounds(50, 175, 135, 30);
         bEliminar.addActionListener((ActionListener) this);
         pSuper.add(bEliminar);
@@ -720,12 +722,12 @@ public class Proyecto2 extends JFrame implements ActionListener {
         pEditarEmpleado.add(cbxEditarId);
         cbxEditarId.setBounds(135, 75, 130, 20);
 
-        Empleado comboEditar = listadoEmpleado.getInicial().getValor();//agrega los id al combo
+        /*Empleado comboEditar = listadoEmpleado.getInicial().getValor();//agrega los id al combo
         for (int i = 0; i < listadoEmpleado.count; i++) {
             comboEditar = listadoEmpleado.getActual().getValor();
             cbxEditarId.addItem(comboEditar.getId());
             listadoEmpleado.Avanzar();
-        }
+        }*/
         cbxEditarId.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 Empleado indiceComboEditar = listadoEmpleado.getInicial().getValor();
@@ -935,8 +937,9 @@ public class Proyecto2 extends JFrame implements ActionListener {
         lbCrearTareaEmpleado.setBounds(20, 275, 110, 25);
         pCrearTarea.add(cbxCrearTareaEmpleado);
         cbxCrearTareaEmpleado.setBounds(135, 275, 130, 20);
-
-        Empleado comboCrearTareaEmpleado = listadoEmpleado.getInicial().getValor();//agrega los empleados al combo
+        cbxCrearTareaEmpleado.addItem("Sin Asignar");
+        
+        Empleado comboCrearTareaEmpleado = listadoEmpleado.getInicial().getValor();//agrega los empleados al combo        
         for (int i = 0; i < listadoEmpleado.count; i++) {
             comboCrearTareaEmpleado = listadoEmpleado.getActual().getValor();
             cbxCrearTareaEmpleado.addItem(comboCrearTareaEmpleado);
@@ -1056,10 +1059,12 @@ public class Proyecto2 extends JFrame implements ActionListener {
                     String Nick = valores[12];
                     String Password = valores[13];
 
-                    Empleado nuevoEmpleado = new Empleado(Id, Nombre, Apellido, Puesto, Tipo, D, L, M, Mi, J, V, S, Nick, Password);
-                    listadoEmpleado.Agregar(nuevoEmpleado);
-                    modeloAgregar.addElement(nuevoEmpleado);
-                    cbxEditarId.addItem(nuevoEmpleado.getId());                    
+                    Empleado CargarEmpleado = new Empleado(Id, Nombre, Apellido, Puesto, Tipo, D, L, M, Mi, J, V, S, Nick, Password);
+                    listadoEmpleado.Agregar(CargarEmpleado);
+                    modeloAgregar.addElement(CargarEmpleado);
+                    cbxEditarId.addItem(CargarEmpleado.getId());
+                    cbxCrearTareaEmpleado.addItem(CargarEmpleado);
+
                 }
                 JOptionPane.showMessageDialog(null, "Datos Cargados");
             } catch (FileNotFoundException e) {
@@ -1131,6 +1136,12 @@ public class Proyecto2 extends JFrame implements ActionListener {
         if (evento.getSource() == bRegresar3) //    REGRESAR: de Editar empleado a menu administrador
         {
             pEditarEmpleado.setVisible(false);
+            pmenu1.setVisible(true);
+        }
+
+        if (evento.getSource() == bRegresar4) //    REGRESAR: de Editar empleado a menu administrador
+        {
+            pCrearTarea.setVisible(false);
             pmenu1.setVisible(true);
         }
 
@@ -1351,29 +1362,39 @@ public class Proyecto2 extends JFrame implements ActionListener {
             try {
 
                 output = new BufferedWriter(new FileWriter(archivoEmpleado, false));//false sobre escribe el archivo
-                output.write("Id,nombre,apellido,puesto,tipousuario,d,l,m,mi,j,v,s,nick,contraseña");                
+                output.write("Id,nombre,apellido,puesto,tipousuario,d,l,m,mi,j,v,s,nick,contraseña\n");                
                 
-/*                Empleado indice2 = listadoEmpleado.getInicial().getValor();
-                for (int i = 0; i < listadoEmpleado.getCount(); i++) {
+                Empleado indice2 = listadoEmpleado.getInicial().getValor();
+                listadoEmpleado.Avanzar();
+                for (int i = 1; i < listadoEmpleado.getCount(); i++) {
                             indice2 = listadoEmpleado.getActual().getValor();
-                            String der = String.valueOf(indice2.getId());
-                                
+                            //String der = String.valueOf(indice2.getId());
+                            int indice2D,indice2L,indice2M,indice2Mi,indice2J,indice2V,indice2S;
+                            
+                            if (indice2.isD()){indice2D=1;} else {indice2D=0;}
+                            if (indice2.isL()){indice2L=1;} else {indice2L=0;}
+                            if (indice2.isM()){indice2M=1;} else {indice2M=0;}
+                            if (indice2.isMi()){indice2Mi=1;} else {indice2Mi=0;}
+                            if (indice2.isJ()){indice2J=1;} else {indice2J=0;}
+                            if (indice2.isV()){indice2V=1;} else {indice2V=0;}
+                            if (indice2.isS()){indice2S=1;} else {indice2S=0;}
+                            
                             output.write(indice2.getId()+","+
                             indice2.getNombre()+","+
                             indice2.getApellido()+","+
                             indice2.getPuesto()+","+
                             indice2.getTipousuario()+","+
-                            indice2.isD()+","+
-                            indice2.isL()+","+
-                            indice2.isM()+","+
-                            indice2.isMi()+","+
-                            indice2.isJ()+","+
-                            indice2.isV()+","+
-                            indice2.isS()+","+
+                            indice2D+","+
+                            indice2L+","+
+                            indice2M+","+
+                            indice2Mi+","+
+                            indice2J+","+
+                            indice2V+","+
+                            indice2S+","+
                             indice2.getNick()+","+
-                            indice2.getPassword());
+                            indice2.getPassword()+"\n");//+"\n"
                 listadoEmpleado.Avanzar();
-                }*/
+                }
                 
                 //metodo para llenar
             } catch (IOException e) {
@@ -1446,22 +1467,78 @@ public class Proyecto2 extends JFrame implements ActionListener {
             }
             listadoEmpleado.Avanzar();
         }
+
+            BufferedWriter output = null;
+            try {
+
+                output = new BufferedWriter(new FileWriter(archivoEmpleado, false));//false sobre escribe el archivo
+                output.write("Id,nombre,apellido,puesto,tipousuario,d,l,m,mi,j,v,s,nick,contraseña\n");                
+                
+                Empleado indice3 = listadoEmpleado.getInicial().getValor();
+                listadoEmpleado.Avanzar();
+                for (int i = 0; i < listadoEmpleado.getCount(); i++) {
+                            indice3 = listadoEmpleado.getActual().getValor();
+                            //String der = String.valueOf(indice3.getId());
+                            int indice3D,indice3L,indice3M,indice3Mi,indice3J,indice3V,indice3S;
+                            
+                            if (indice3.isD()){indice3D=1;} else {indice3D=0;}
+                            if (indice3.isL()){indice3L=1;} else {indice3L=0;}
+                            if (indice3.isM()){indice3M=1;} else {indice3M=0;}
+                            if (indice3.isMi()){indice3Mi=1;} else {indice3Mi=0;}
+                            if (indice3.isJ()){indice3J=1;} else {indice3J=0;}
+                            if (indice3.isV()){indice3V=1;} else {indice3V=0;}
+                            if (indice3.isS()){indice3S=1;} else {indice3S=0;}
+                            
+                            output.write(indice3.getId()+","+
+                            indice3.getNombre()+","+
+                            indice3.getApellido()+","+
+                            indice3.getPuesto()+","+
+                            indice3.getTipousuario()+","+
+                            indice3D+","+
+                            indice3L+","+
+                            indice3M+","+
+                            indice3Mi+","+
+                            indice3J+","+
+                            indice3V+","+
+                            indice3S+","+
+                            indice3.getNick()+","+
+                            indice3.getPassword()+"\n");//+"\n"
+                listadoEmpleado.Avanzar();
+                }
+                
+                //metodo para llenar
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (output != null) {
+                    try {
+                        output.close();
+                    } catch (IOException ex) {
+                        Logger.getLogger(Proyecto2.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+
+
         JOptionPane.showMessageDialog(null, "Datos Actualizados", "Editar Empleado", JOptionPane.DEFAULT_OPTION);
     }
 
     private void CrearTarea() {
         String NombreTarea, DescTarea, EmpleadoTarea;
         int Duracion, Porcentaje;
-        Date FechaI, FechaF;
+        Date FechaI,FechaF;
+        Calendar fechainicio=Calendar.getInstance();
 
         NombreTarea = txCrearTareaNombre.getText();
         DescTarea = txCrearTareaDesc.getText();
         EmpleadoTarea = String.valueOf(cbxCrearTareaEmpleado.getSelectedItem());
         Duracion = Integer.parseInt(String.valueOf(snCrearTareaDuracion.getValue()));
         Porcentaje = 0;
-        FechaI = dcCrearTareaFechaI.getDate();
-        FechaF = FechaI;
-
+        FechaI=dcCrearTareaFechaI.getDate();
+        fechainicio.setTime(FechaI);
+        fechainicio.add(Calendar.DATE,Duracion);
+        FechaF=fechainicio.getTime();
+        System.out.print(FechaF);
         Tarea nuevaTarea = new Tarea(NombreTarea, DescTarea, EmpleadoTarea, Duracion, Porcentaje, FechaI, FechaF);
         modeloCrearTarea.addElement(nuevaTarea);
 
