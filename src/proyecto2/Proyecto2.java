@@ -153,6 +153,25 @@ public class Proyecto2 extends JFrame implements ActionListener {
     JSpinner snCrearTareaDuracion;
     JTextField txCrearTareaNombre, txCrearTareaDesc;//,txCrearTareaPorcentaje,txCrearTareaEstado;
 
+    //editar tarea ADministrador
+    JButton bRegresar5, bEditarTarea,bDetallesEditarTarea;    
+    JComboBox cbxEditarTarea, cbxEditarTareaEmpleado;
+    JLabel lbEditarTareaNombre1, lbEditarTareaDesc1, lbEditarTareaFechaI1, lbEditarTareaDuracion1, lbEditarTareaFechaF1, lbEditarTareaPorcentaje1, lbEditarTareaEmpleado;
+    JLabel lbEditarTareaNombre2, lbEditarTareaDesc2, lbEditarTareaFechaI2, lbEditarTareaDuracion2, lbEditarTareaFechaF2, lbEditarTareaPorcentaje2;            
+    JLabel lbEditarTareaEmpleado2,lbEditarTareaEmpleado3;
+    
+//panel menu Empleado    
+    JPanel pEmpleado,pEditarTarea2,pTareasPendientes;
+    JButton bRegresarEmpleado1,bRegresarEmpleado2,bRegresarEmpleado3,bEmpleadoEditarTarea,bEmpleadoReportes;
+    JButton bEmpleadoDetalles,bEditarPorcentaje,bpdfTareasPendientes;
+    
+    JComboBox cbxEmpleadoEditarTarea, cbxEmpleadoEditarTareaPorcentaje;
+    JLabel lbEmpleadoEditarTareaNombre1, lbEmpleadoEditarTareaDesc1, lbEmpleadoEditarTareaFechaI1, lbEmpleadoEditarTareaDuracion1, lbEmpleadoEditarTareaFechaF1, lbEmpleadoEditarTareaPorcentaje1, lbEmpleadoEditarTareaEmpleado;
+    JLabel lbEmpleadoEditarTareaNombre2, lbEmpleadoEditarTareaDesc2, lbEmpleadoEditarTareaFechaI2, lbEmpleadoEditarTareaDuracion2, lbEmpleadoEditarTareaFechaF2, lbEmpleadoEditarTareaPorcentaje2;            
+    JLabel lbEmpleadoEditarTareaEmpleado2,lbEmpleadoEditarTareaEmpleado3;
+    JTextField txEmpleadoEditarAvance;
+    
+    
     public Proyecto2() {
         setTitle("Proyecto No. 2");
 
@@ -313,7 +332,7 @@ public class Proyecto2 extends JFrame implements ActionListener {
         vie = new JLabel();
         sab = new JLabel();
 
-        Empleado empleado = new Empleado(0, "Sebastián", "Cabrera", "Super Usuario", 1, false, true, true, true, true, true, false, "SebasVGC", "pass");
+        Empleado empleado = new Empleado(0, "Sebastián", "Cabrera", "Super Usuario", 1, false, true, true, true, true, true, false, "abc", "pass");
         listadoEmpleado.Agregar(empleado);
 /*
         empleado = new Empleado(02, "Aaron", "Flores", "Desarrollador", 2, false, true, true, false, true, true, true, "aflores", "passtrue");
@@ -508,17 +527,17 @@ public class Proyecto2 extends JFrame implements ActionListener {
         cnombre2.setText(String.valueOf(listadoEmpleado.getActual().getValor().getNombre()));
         cnombre2.setFont(titulo);
         pcarrusel.add(cnombre2);
-        cnombre2.setBounds(175, 50, 100, 25);
+        cnombre2.setBounds(175, 50, 200, 25);
 
         capellido2.setText(String.valueOf(listadoEmpleado.getActual().getValor().getApellido()));
         capellido2.setFont(titulo);
         pcarrusel.add(capellido2);
-        capellido2.setBounds(175, 80, 100, 25);
+        capellido2.setBounds(175, 80, 200, 25);
 
         cpuesto2.setText(String.valueOf(listadoEmpleado.getActual().getValor().getPuesto()));
         cpuesto2.setFont(titulo);
         pcarrusel.add(cpuesto2);
-        cpuesto2.setBounds(175, 110, 100, 25);
+        cpuesto2.setBounds(175, 110, 200, 25);
 
         banterior.setText("Anterior");//Boton anterior
         banterior.setBounds(50, 225, 100, 30);
@@ -971,7 +990,337 @@ public class Proyecto2 extends JFrame implements ActionListener {
         bCrearTarea.addActionListener((ActionListener) this);
         pCrearTarea.add(bCrearTarea);
 
-            String NombreTarea2,DescTarea2,EmpleadoTarea2,sfechai2,sfechaf2;
+
+//Panel: editar tarea            
+            
+        pEditarTarea1 = new JPanel();
+        bRegresar5 = new JButton();
+        bEditarTarea = new JButton();
+        bDetallesEditarTarea = new JButton();
+        cbxEditarTarea = new JComboBox();
+        cbxEditarTareaEmpleado = new JComboBox();
+            
+        lbEditarTareaNombre1 = new JLabel();
+        lbEditarTareaDesc1 = new JLabel();
+        lbEditarTareaFechaI1 = new JLabel();
+        lbEditarTareaDuracion1 = new JLabel();
+        lbEditarTareaFechaF1 = new JLabel();
+        lbEditarTareaPorcentaje1 = new JLabel();
+        lbEditarTareaEmpleado = new JLabel();        
+        lbEditarTareaEmpleado2 = new JLabel();        
+        lbEditarTareaEmpleado3 = new JLabel();        
+                
+            lbEditarTareaNombre2 = new JLabel();
+            lbEditarTareaDesc2 = new JLabel();
+            lbEditarTareaFechaI2 = new JLabel();
+            lbEditarTareaDuracion2 = new JLabel();
+            lbEditarTareaFechaF2 = new JLabel();
+            lbEditarTareaPorcentaje2 = new JLabel();
+
+        
+        pEditarTarea1.setLayout(null);
+        pEditarTarea1.setVisible(false);
+
+        bRegresar5.setText("Regresar");
+        bRegresar5.setBounds(20, 25, 100, 30);
+        bRegresar5.addActionListener((ActionListener) this);
+        pEditarTarea1.add(bRegresar5);
+
+        bDetallesEditarTarea.setText("Detalles");
+        bDetallesEditarTarea.setBounds(350, 35, 100, 25);
+        bDetallesEditarTarea.addActionListener((ActionListener) this);
+        pEditarTarea1.add(bDetallesEditarTarea);
+
+        lbEditarTareaNombre1.setText("Tarea: ");
+        lbEditarTareaNombre1.setHorizontalAlignment(SwingConstants.RIGHT);
+        lbEditarTareaNombre1.setFont(subtitulo);
+        pEditarTarea1.add(lbEditarTareaNombre1);
+        lbEditarTareaNombre1.setBounds(50, 75, 75, 25);
+                pEditarTarea1.add(cbxEditarTarea);
+                cbxEditarTarea.setBounds(150, 75, 275, 25);
+                
+        lbEditarTareaDesc1.setText("Descripcion: ");
+        lbEditarTareaDesc1.setHorizontalAlignment(SwingConstants.RIGHT);
+        lbEditarTareaDesc1.setFont(subtitulo);
+        pEditarTarea1.add(lbEditarTareaDesc1);
+        lbEditarTareaDesc1.setBounds(30, 100, 90, 25);                        
+            lbEditarTareaDesc2.setText("");
+            lbEditarTareaDesc2.setHorizontalAlignment(SwingConstants.CENTER);            
+            lbEditarTareaDesc2.setFont(subtitulo);
+            pEditarTarea1.add(lbEditarTareaDesc2);
+            lbEditarTareaDesc2.setBounds(10, 125, 480, 25);
+
+        lbEditarTareaFechaI1.setText("Fecha Inicio: ");
+        lbEditarTareaFechaI1.setHorizontalAlignment(SwingConstants.RIGHT);
+        lbEditarTareaFechaI1.setFont(subtitulo);
+        pEditarTarea1.add(lbEditarTareaFechaI1);
+        lbEditarTareaFechaI1.setBounds(30, 175, 100, 25);
+            lbEditarTareaFechaI2.setText("Fecha Inicio: ");
+            lbEditarTareaFechaI2.setFont(subtitulo);
+            pEditarTarea1.add(lbEditarTareaFechaI2);
+            lbEditarTareaFechaI2.setBounds(150, 175, 100, 25);
+        
+        
+        lbEditarTareaDuracion1.setText("Duracion: ");
+        lbEditarTareaDuracion1.setHorizontalAlignment(SwingConstants.RIGHT);
+        lbEditarTareaDuracion1.setFont(subtitulo);
+        pEditarTarea1.add(lbEditarTareaDuracion1);
+        lbEditarTareaDuracion1.setBounds(30, 200, 100, 25);
+            lbEditarTareaDuracion2.setText("");
+            lbEditarTareaDuracion2.setFont(subtitulo);
+            pEditarTarea1.add(lbEditarTareaDuracion2);
+            lbEditarTareaDuracion2.setBounds(150, 200, 100, 25);
+
+        lbEditarTareaFechaF1.setText("Fecha Fin: ");
+        lbEditarTareaFechaF1.setHorizontalAlignment(SwingConstants.RIGHT);
+        lbEditarTareaFechaF1.setFont(subtitulo);
+        pEditarTarea1.add(lbEditarTareaFechaF1);
+        lbEditarTareaFechaF1.setBounds(30, 225, 100, 25);
+            lbEditarTareaFechaF2.setText("Fecha Fin ");
+            lbEditarTareaFechaF2.setFont(subtitulo);
+            pEditarTarea1.add(lbEditarTareaFechaF2);
+            lbEditarTareaFechaF2.setBounds(150, 225, 100, 25);
+
+        lbEditarTareaPorcentaje1.setText("Avance: ");
+        lbEditarTareaPorcentaje1.setHorizontalAlignment(SwingConstants.RIGHT);
+        lbEditarTareaPorcentaje1.setFont(subtitulo);
+        pEditarTarea1.add(lbEditarTareaPorcentaje1);
+        lbEditarTareaPorcentaje1.setBounds(30, 250, 100, 25);
+            lbEditarTareaPorcentaje2.setText("Fecha Fin ");
+            lbEditarTareaPorcentaje2.setFont(subtitulo);
+            pEditarTarea1.add(lbEditarTareaPorcentaje2);
+            lbEditarTareaPorcentaje2.setBounds(150, 250, 100, 25);
+        
+        lbEditarTareaEmpleado.setText("Empleado actual: ");
+        lbEditarTareaEmpleado.setHorizontalAlignment(SwingConstants.RIGHT);
+        lbEditarTareaEmpleado.setFont(subtitulo);
+        pEditarTarea1.add(lbEditarTareaEmpleado);
+        lbEditarTareaEmpleado.setBounds(30, 275, 100, 25);
+            lbEditarTareaEmpleado2.setText("");
+            lbEditarTareaEmpleado2.setFont(subtitulo);
+            pEditarTarea1.add(lbEditarTareaEmpleado2);
+            lbEditarTareaEmpleado2.setBounds(150, 275, 100, 25);
+        
+        
+        lbEditarTareaEmpleado3.setText("Nuevo Empleado: ");
+        lbEditarTareaEmpleado3.setHorizontalAlignment(SwingConstants.RIGHT);
+        lbEditarTareaEmpleado3.setFont(subtitulo);
+        pEditarTarea1.add(lbEditarTareaEmpleado3);
+        lbEditarTareaEmpleado3.setBounds(20, 300, 110, 25);
+            pEditarTarea1.add(cbxEditarTareaEmpleado);
+            cbxEditarTareaEmpleado.setBounds(150, 300, 130, 20);
+            cbxEditarTareaEmpleado.addItem("Sin Asignar");
+
+        Empleado comboEditarTareaEmpleado = listadoEmpleado.getInicial().getValor();//agrega los empleados al combo        
+        for (int i = 0; i < listadoEmpleado.count; i++) {
+            comboEditarTareaEmpleado = listadoEmpleado.getActual().getValor();
+            cbxEditarTareaEmpleado.addItem(comboEditarTareaEmpleado);
+            listadoEmpleado.Avanzar();
+        }
+
+        bDetallesEditarTarea.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String abc= String.valueOf(cbxEditarTarea.getSelectedItem());
+                for (int i = 0; i < modeloCrearTarea.getSize(); i++) {                    
+                    
+                    Tarea indicet =(Tarea)modeloCrearTarea.getElementAt(i);
+                    if (abc.contains(indicet.getNombreTarea())){
+                    String sfi=new SimpleDateFormat("dd-MM-yyyy").format(indicet.getFechaI());
+                    String sff=new SimpleDateFormat("dd-MM-yyyy").format(indicet.getFechaF());
+                    
+                    lbEditarTareaDesc2.setText(indicet.getDescTarea());
+                    lbEditarTareaFechaI2.setText(sfi);
+                    lbEditarTareaDuracion2.setText(String.valueOf(indicet.getDuracion()));
+                    lbEditarTareaFechaF2.setText(sff);
+                    lbEditarTareaPorcentaje2.setText(indicet.getPorcentaje()+" %");
+                    lbEditarTareaEmpleado2.setText(indicet.getEmpleadoTarea());
+                    
+                    }
+                }
+            }
+        });
+        
+        
+
+        bEditarTarea.setText("Editar");
+        bEditarTarea.setBounds(325, 200, 100, 25);
+        bEditarTarea.addActionListener((ActionListener) this);
+        pEditarTarea1.add(bEditarTarea);
+            
+            
+
+//PANEL menu Empleado: 1
+//-------------------
+        pEmpleado = new JPanel();
+        pEmpleado.setLayout(null);
+        pEmpleado.setVisible(false);
+
+        bRegresarEmpleado1 = new JButton();
+        bRegresarEmpleado2 = new JButton();
+        bRegresarEmpleado3 = new JButton();
+        bEmpleadoEditarTarea = new JButton();
+        bEmpleadoReportes = new JButton();
+        bEditarPorcentaje = new JButton();
+        bpdfTareasPendientes = new JButton();
+
+        bRegresarEmpleado1.setText("Regresar");
+        bRegresarEmpleado1.setBounds(20, 25, 100, 30);
+        bRegresarEmpleado1.addActionListener((ActionListener) this);
+        pEmpleado.add(bRegresarEmpleado1);
+
+        bEmpleadoEditarTarea.setText("Editar Tarea");
+        bEmpleadoEditarTarea.setBounds(50, 125, 135, 30);
+        bEmpleadoEditarTarea.addActionListener((ActionListener) this);
+        pEmpleado.add(bEmpleadoEditarTarea);
+
+        bEmpleadoReportes.setText("Reporte Tareas P");
+        bEmpleadoReportes.setBounds(50, 175, 135, 30);
+        bEmpleadoReportes.addActionListener((ActionListener) this);
+        pEmpleado.add(bEmpleadoReportes);
+
+
+//Panel: editar tarea empleado
+            
+        pEditarTarea2 = new JPanel();
+        bRegresar5 = new JButton();
+        bEmpleadoDetalles = new JButton();
+        cbxEmpleadoEditarTarea = new JComboBox();
+
+            
+        lbEmpleadoEditarTareaNombre1 = new JLabel();
+        lbEmpleadoEditarTareaDesc1 = new JLabel();
+        lbEmpleadoEditarTareaFechaI1 = new JLabel();
+        lbEmpleadoEditarTareaDuracion1 = new JLabel();
+        lbEmpleadoEditarTareaFechaF1 = new JLabel();
+        lbEmpleadoEditarTareaPorcentaje1 = new JLabel();
+        txEmpleadoEditarAvance = new JTextField();
+        lbEmpleadoEditarTareaEmpleado = new JLabel();        
+        lbEmpleadoEditarTareaEmpleado2 = new JLabel();        
+                
+            lbEmpleadoEditarTareaNombre2 = new JLabel();
+            lbEmpleadoEditarTareaDesc2 = new JLabel();
+            lbEmpleadoEditarTareaFechaI2 = new JLabel();
+            lbEmpleadoEditarTareaDuracion2 = new JLabel();
+            lbEmpleadoEditarTareaFechaF2 = new JLabel();
+
+
+        
+        pEditarTarea2.setLayout(null);
+        pEditarTarea2.setVisible(false);
+
+        bRegresar5.setText("Regresar");
+        bRegresar5.setBounds(20, 25, 100, 30);
+        bRegresar5.addActionListener((ActionListener) this);
+        pEditarTarea2.add(bRegresar5);
+
+        bEmpleadoDetalles.setText("Detalles");
+        bEmpleadoDetalles.setBounds(350, 35, 100, 25);
+        bEmpleadoDetalles.addActionListener((ActionListener) this);
+        pEditarTarea2.add(bEmpleadoDetalles);
+
+        lbEmpleadoEditarTareaNombre1.setText("Tarea: ");
+        lbEmpleadoEditarTareaNombre1.setHorizontalAlignment(SwingConstants.RIGHT);
+        lbEmpleadoEditarTareaNombre1.setFont(subtitulo);
+        pEditarTarea2.add(lbEmpleadoEditarTareaNombre1);
+        lbEmpleadoEditarTareaNombre1.setBounds(50, 75, 75, 25);
+                pEditarTarea2.add(cbxEmpleadoEditarTarea);
+                cbxEmpleadoEditarTarea.setBounds(150, 75, 275, 25);
+                
+        lbEmpleadoEditarTareaDesc1.setText("Descripcion: ");
+        lbEmpleadoEditarTareaDesc1.setHorizontalAlignment(SwingConstants.RIGHT);
+        lbEmpleadoEditarTareaDesc1.setFont(subtitulo);
+        pEditarTarea2.add(lbEmpleadoEditarTareaDesc1);
+        lbEmpleadoEditarTareaDesc1.setBounds(30, 100, 90, 25);                        
+            lbEmpleadoEditarTareaDesc2.setText("");
+            lbEmpleadoEditarTareaDesc2.setHorizontalAlignment(SwingConstants.CENTER);            
+            lbEmpleadoEditarTareaDesc2.setFont(subtitulo);
+            pEditarTarea2.add(lbEmpleadoEditarTareaDesc2);
+            lbEmpleadoEditarTareaDesc2.setBounds(10, 125, 480, 25);
+
+        lbEmpleadoEditarTareaFechaI1.setText("Fecha Inicio: ");
+        lbEmpleadoEditarTareaFechaI1.setHorizontalAlignment(SwingConstants.RIGHT);
+        lbEmpleadoEditarTareaFechaI1.setFont(subtitulo);
+        pEditarTarea2.add(lbEmpleadoEditarTareaFechaI1);
+        lbEmpleadoEditarTareaFechaI1.setBounds(30, 175, 100, 25);
+            lbEmpleadoEditarTareaFechaI2.setText("dd-MM-aaaa");
+            lbEmpleadoEditarTareaFechaI2.setFont(subtitulo);
+            pEditarTarea2.add(lbEmpleadoEditarTareaFechaI2);
+            lbEmpleadoEditarTareaFechaI2.setBounds(150, 175, 100, 25);
+        
+        
+        lbEmpleadoEditarTareaDuracion1.setText("Duracion: ");
+        lbEmpleadoEditarTareaDuracion1.setHorizontalAlignment(SwingConstants.RIGHT);
+        lbEmpleadoEditarTareaDuracion1.setFont(subtitulo);
+        pEditarTarea2.add(lbEmpleadoEditarTareaDuracion1);
+        lbEmpleadoEditarTareaDuracion1.setBounds(30, 200, 100, 25);
+            lbEmpleadoEditarTareaDuracion2.setText("");
+            lbEmpleadoEditarTareaDuracion2.setFont(subtitulo);
+            pEditarTarea2.add(lbEmpleadoEditarTareaDuracion2);
+            lbEmpleadoEditarTareaDuracion2.setBounds(150, 200, 100, 25);
+
+        lbEmpleadoEditarTareaFechaF1.setText("Fecha Fin: ");
+        lbEmpleadoEditarTareaFechaF1.setHorizontalAlignment(SwingConstants.RIGHT);
+        lbEmpleadoEditarTareaFechaF1.setFont(subtitulo);
+        pEditarTarea2.add(lbEmpleadoEditarTareaFechaF1);
+        lbEmpleadoEditarTareaFechaF1.setBounds(30, 225, 100, 25);
+            lbEmpleadoEditarTareaFechaF2.setText("dd-MM-aaaa");
+            lbEmpleadoEditarTareaFechaF2.setFont(subtitulo);
+            pEditarTarea2.add(lbEmpleadoEditarTareaFechaF2);
+            lbEmpleadoEditarTareaFechaF2.setBounds(150, 225, 100, 25);
+
+        lbEmpleadoEditarTareaPorcentaje1.setText("Avance: %");
+        lbEmpleadoEditarTareaPorcentaje1.setHorizontalAlignment(SwingConstants.RIGHT);
+        lbEmpleadoEditarTareaPorcentaje1.setFont(subtitulo);
+        pEditarTarea2.add(lbEmpleadoEditarTareaPorcentaje1);
+        lbEmpleadoEditarTareaPorcentaje1.setBounds(30, 250, 100, 25);
+            txEmpleadoEditarAvance.setText("Fecha Fin ");
+            txEmpleadoEditarAvance.setFont(subtitulo);
+            pEditarTarea2.add(txEmpleadoEditarAvance);
+            txEmpleadoEditarAvance.setBounds(150, 250, 100, 25);
+        
+        lbEmpleadoEditarTareaEmpleado.setText("Empleado: ");
+        lbEmpleadoEditarTareaEmpleado.setHorizontalAlignment(SwingConstants.RIGHT);
+        lbEmpleadoEditarTareaEmpleado.setFont(subtitulo);
+        pEditarTarea2.add(lbEmpleadoEditarTareaEmpleado);
+        lbEmpleadoEditarTareaEmpleado.setBounds(30, 275, 100, 25);
+            lbEmpleadoEditarTareaEmpleado2.setText("");
+            lbEmpleadoEditarTareaEmpleado2.setFont(subtitulo);
+            pEditarTarea2.add(lbEmpleadoEditarTareaEmpleado2);
+            lbEmpleadoEditarTareaEmpleado2.setBounds(150, 275, 100, 25);
+        
+        
+        bEmpleadoDetalles.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String abc= String.valueOf(cbxEmpleadoEditarTarea.getSelectedItem());
+                for (int i = 0; i < modeloCrearTarea.getSize(); i++) {                    
+                    
+                    Tarea indicet =(Tarea)modeloCrearTarea.getElementAt(i);
+                    if (abc.contains(indicet.getNombreTarea())){
+                    String sfi=new SimpleDateFormat("dd-MM-yyyy").format(indicet.getFechaI());
+                    String sff=new SimpleDateFormat("dd-MM-yyyy").format(indicet.getFechaF());
+                    
+                    lbEmpleadoEditarTareaDesc2.setText(indicet.getDescTarea());
+                    lbEmpleadoEditarTareaFechaI2.setText(sfi);
+                    lbEmpleadoEditarTareaDuracion2.setText(String.valueOf(indicet.getDuracion())+" dias");
+                    lbEmpleadoEditarTareaFechaF2.setText(sff);
+                    txEmpleadoEditarAvance.setText(String.valueOf(indicet.getPorcentaje()));
+                    lbEmpleadoEditarTareaEmpleado2.setText(indicet.getEmpleadoTarea());
+                    
+                    }
+                }
+            }
+        });
+        
+        
+
+        bEditarPorcentaje.setText("Editar");
+        bEditarPorcentaje.setBounds(325, 200, 100, 25);
+        bEditarPorcentaje.addActionListener((ActionListener) this);
+        pEditarTarea2.add(bEditarPorcentaje);
+
+            
+        //CARGAR LAS TAREAS
+        String NombreTarea2,DescTarea2,EmpleadoTarea2,sfechai2,sfechaf2;
             int Duracion2,Porcentaje2;
             Date FechaI2,FechaF2;
             SimpleDateFormat formato2 = new SimpleDateFormat("dd/MM/yyyy");
@@ -989,11 +1338,12 @@ public class Proyecto2 extends JFrame implements ActionListener {
                 FechaF2 = formato2.parse(sfechaf2);            
                 Tarea tarea2 = new Tarea (NombreTarea2,DescTarea2,EmpleadoTarea2,Duracion2,Porcentaje2,FechaI2,FechaF2);
                 modeloCrearTarea.addElement(tarea2);
+                cbxEditarTarea.addItem(tarea2);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
 
-            archivoTarea=new File("C:\\Tareas1.csv");
+            archivoTarea=new File("C:\\progra\\Tareas2.csv");
 
             BufferedReader reader2 = null;
 
@@ -1025,7 +1375,8 @@ public class Proyecto2 extends JFrame implements ActionListener {
                 FechaF = formato.parse(sfechaf);            
                 Tarea tarea = new Tarea (NombreTarea,DescTarea,EmpleadoTarea,Duracion,Porcentaje,FechaI,FechaF);
                 modeloCrearTarea.addElement(tarea);
-
+                cbxEditarTarea.addItem(tarea);
+                cbxEmpleadoEditarTarea.addItem(tarea);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -1045,7 +1396,8 @@ public class Proyecto2 extends JFrame implements ActionListener {
                 } catch (IOException e) {
                 }
             }
-        
+
+            
     }
 
     public void actionPerformed(ActionEvent evento) {
@@ -1057,15 +1409,22 @@ public class Proyecto2 extends JFrame implements ActionListener {
             texto2 = textopassword.getText();
             if ((texto.contains("ROOT"))&&(texto2.contains("201612190")))//si es ROOT muestra el menu exclusivo Super Usuario
         {
-            getContentPane().add(pSuper);
+            /*getContentPane().add(pSuper);
             pSuper.setVisible(true);
             plogin.setVisible(false);
+            */
+                        getContentPane().add(pEmpleado);
+                        pEmpleado.setVisible(true);
+                        plogin.setVisible(false);
+                        
+
             }
-        else//si no es Super usuario, muestra menu de administrador o de Empleado
+
+            else//si no es Super usuario, muestra menu de administrador o de Empleado
         {    
             Empleado indice=listadoEmpleado.getInicial().getValor();
             listadoEmpleado.Avanzar();
-            for (int i=1; i<listadoEmpleado.getCount();i++)
+            for (int i=1; i<listadoEmpleado.getCount();i++)//for i=1
             {                            
                 indice = listadoEmpleado.getActual().getValor();
                 if ((texto.contains(indice.getNick()))&&(texto2.contains(indice.getPassword())))
@@ -1079,8 +1438,8 @@ public class Proyecto2 extends JFrame implements ActionListener {
                     }
                     else//si es Empleado, muestra el menu 2
                     {
-                        getContentPane().add(pmenu1);
-                        pmenu1.setVisible(true);
+                        getContentPane().add(pEmpleado);
+                        pEmpleado.setVisible(true);
                         plogin.setVisible(false);
                         System.out.println("Empleado");
                     }
@@ -1096,6 +1455,11 @@ public class Proyecto2 extends JFrame implements ActionListener {
         if (evento.getSource() == bRootRegresar) //    REGRESAR de Root a login
         {
             pSuper.setVisible(false);
+            plogin.setVisible(true);
+        }
+        if (evento.getSource() == bRegresarEmpleado1) //    REGRESAR de Root a login
+        {
+            pEmpleado.setVisible(false);
             plogin.setVisible(true);
         }
 
@@ -1141,7 +1505,7 @@ public class Proyecto2 extends JFrame implements ActionListener {
                     modeloAgregar.addElement(CargarEmpleado);
                     cbxEditarId.addItem(CargarEmpleado.getId());
                     cbxCrearTareaEmpleado.addItem(CargarEmpleado);
-
+                    cbxEditarTareaEmpleado.addItem(CargarEmpleado);
                 }
                 JOptionPane.showMessageDialog(null, "Datos Cargados");
             } catch (FileNotFoundException e) {
@@ -1200,6 +1564,19 @@ public class Proyecto2 extends JFrame implements ActionListener {
             pmenu1.setVisible(false);
             pCrearTarea.setVisible(true);
         }
+        if (evento.getSource() == b15) //    Ir a editar Tarea
+        {
+            getContentPane().add(pEditarTarea1);
+            pmenu1.setVisible(false);
+            pEditarTarea1.setVisible(true);
+        }
+        if (evento.getSource() == b16) //    Ir a reportes de administrador Tarea
+        {
+            getContentPane().add(pReporteTarea);
+            pmenu1.setVisible(false);
+            pReporteTarea.setVisible(true);
+        }
+        
 
         if (evento.getSource() == bcRegresar) //    REGRESAR: de carrusel a menu administrador
         {
@@ -1219,9 +1596,15 @@ public class Proyecto2 extends JFrame implements ActionListener {
             pmenu1.setVisible(true);
         }
 
-        if (evento.getSource() == bRegresar4) //    REGRESAR: de Editar empleado a menu administrador
+        if (evento.getSource() == bRegresar4) //    REGRESAR: de Crear Tarea a menu administrador
         {
             pCrearTarea.setVisible(false);
+            pmenu1.setVisible(true);
+        }
+
+        if (evento.getSource() == bRegresar5) //    REGRESAR: de Editar tarea a menu administrador
+        {
+            pEditarTarea1.setVisible(false);
             pmenu1.setVisible(true);
         }
 
@@ -1321,10 +1704,29 @@ public class Proyecto2 extends JFrame implements ActionListener {
             EditarEmpleado();
         }
 
-        if (evento.getSource() == bCrearTarea) //    Editar los datos de un empleado
+        if (evento.getSource() == bCrearTarea) //    CrearTarea
         {
             CrearTarea();
         }
+        if (evento.getSource() == bEditarTarea) //    Editar tArea
+        {
+            EditarTareaA();
+        }
+        
+        
+        if (evento.getSource() == bEmpleadoEditarTarea) //    EMPLEADO: Editar tarea
+        {
+            getContentPane().add(pEditarTarea2);
+            pEmpleado.setVisible(false);
+            pEditarTarea2.setVisible(true);
+        }
+        
+        if (evento.getSource() == bEditarPorcentaje) //    Editar porcentaje
+        {
+            EditarTareaE();
+        }
+        
+        
     }
 
     private void mostrarEmpleado() {
@@ -1619,15 +2021,51 @@ public class Proyecto2 extends JFrame implements ActionListener {
         fechainicio.setTime(FechaI);
         fechainicio.add(Calendar.DATE,Duracion);
         FechaF=fechainicio.getTime();
-        System.out.print(FechaF);
+        //System.out.print(FechaF);
         Tarea nuevaTarea = new Tarea(NombreTarea, DescTarea, EmpleadoTarea, Duracion, Porcentaje, FechaI, FechaF);
 
         modeloCrearTarea.addElement(nuevaTarea);
+        cbxEditarTarea.addItem(nuevaTarea);
+        cbxEmpleadoEditarTarea.addItem(nuevaTarea);
 
+        BufferedWriter output = null;
+            try {
+
+                output = new BufferedWriter(new FileWriter(archivoTarea, false));//false sobre escribe el archivo
+                output.write("NombreTarea,Descripcion,Empleado,Duración,Porcentaje,FechaInicio,FechaFin\n");                
+                
+                for (int i = 0; i < modeloCrearTarea.getSize(); i++) {                    
+                    Tarea index2 =(Tarea)modeloCrearTarea.getElementAt(i);
+                    String fi = "";
+                    String ff="";
+
+                fi=new SimpleDateFormat("dd/MM/yyyy").format(index2.getFechaI());
+                ff=new SimpleDateFormat("dd/MM/yyyy").format(index2.getFechaF());
+
+
+
+                    output.write(index2.getNombreTarea()+","+
+                            index2.getDescTarea()+","+
+                            index2.getEmpleadoTarea()+","+
+                            index2.getDuracion()+","+
+                            index2.getPorcentaje()+","+                            
+                            fi+","+
+                            ff+"\n");//+"\n"                                        
+                }                
+                                                
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (output != null) {
+                    try {
+                        output.close();
+                    } catch (IOException ex) {
+                        Logger.getLogger(Proyecto2.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }        
+        
         JOptionPane.showMessageDialog(null, "Tarea agregada existosamente", "Agregar Tarea", JOptionPane.DEFAULT_OPTION);
-
-//      JOptionPane.showMessageDialog(null, "Mensaje dentro de la ventana", "Titulo", JOptionPane.DEFAULT_OPTION);                        
-        System.out.println((dcCrearTareaFechaI.getDate()));
     }
     
     private void mostrarTarea() {
@@ -1650,4 +2088,103 @@ public class Proyecto2 extends JFrame implements ActionListener {
 //      JOptionPane.showMessageDialog(null, "Mensaje dentro de la ventana", "Titulo", JOptionPane.DEFAULT_OPTION);                        
     }    
 
+    private void EditarTareaA() {
+
+        String abc= String.valueOf(cbxEditarTarea.getSelectedItem());
+        for (int i = 0; i < modeloCrearTarea.getSize(); i++) {                    
+            Tarea indicet =(Tarea)modeloCrearTarea.getElementAt(i);
+            if (abc.contains(indicet.getNombreTarea())){        
+            indicet.setEmpleadoTarea(String.valueOf(cbxEditarTareaEmpleado.getSelectedItem()));                            
+            }
+        }
+
+        BufferedWriter output = null;
+            try {
+
+                output = new BufferedWriter(new FileWriter(archivoTarea, false));//false sobre escribe el archivo
+                output.write("NombreTarea,Descripcion,Empleado,Duración,Porcentaje,FechaInicio,FechaFin\n");                
+                
+                for (int i = 0; i < modeloCrearTarea.getSize(); i++) {                    
+                    
+                    Tarea index3 =(Tarea)modeloCrearTarea.getElementAt(i);
+                    String fi = "";
+                    String ff="";
+
+                fi=new SimpleDateFormat("dd/MM/yyyy").format(index3.getFechaI());
+                ff=new SimpleDateFormat("dd/MM/yyyy").format(index3.getFechaF());
+
+                    
+                    output.write(index3.getNombreTarea()+","+
+                            index3.getDescTarea()+","+
+                            index3.getEmpleadoTarea()+","+
+                            index3.getDuracion()+","+
+                            index3.getPorcentaje()+","+                            
+                            fi+","+
+                            ff+"\n");//+"\n"                                        
+                }                
+                                                
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (output != null) {
+                    try {
+                        output.close();
+                    } catch (IOException ex) {
+                        Logger.getLogger(Proyecto2.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }        
+
+        JOptionPane.showMessageDialog(null, "Datos Actualizados", "Editar Tarea", JOptionPane.DEFAULT_OPTION);
+    }
+    
+    private void EditarTareaE() {
+
+        String abc= String.valueOf(cbxEmpleadoEditarTarea.getSelectedItem());
+        for (int i = 0; i < modeloCrearTarea.getSize(); i++) {                    
+            Tarea indicet2 =(Tarea)modeloCrearTarea.getElementAt(i);
+            if (abc.contains(indicet2.getNombreTarea())){        
+                indicet2.setPorcentaje(Integer.parseInt(String.valueOf(txEmpleadoEditarAvance.getText())));
+            }
+        }
+
+        BufferedWriter output = null;
+            try {
+
+                output = new BufferedWriter(new FileWriter(archivoTarea, false));//false sobre escribe el archivo
+                output.write("NombreTarea,Descripcion,Empleado,Duración,Porcentaje,FechaInicio,FechaFin\n");                
+                
+                for (int i = 0; i < modeloCrearTarea.getSize(); i++) {                    
+                    
+                    Tarea index4 =(Tarea)modeloCrearTarea.getElementAt(i);
+                    String fi = "";
+                    String ff="";
+
+                fi=new SimpleDateFormat("dd/MM/yyyy").format(index4.getFechaI());
+                ff=new SimpleDateFormat("dd/MM/yyyy").format(index4.getFechaF());
+
+                    
+                    output.write(index4.getNombreTarea()+","+
+                            index4.getDescTarea()+","+
+                            index4.getEmpleadoTarea()+","+
+                            index4.getDuracion()+","+
+                            index4.getPorcentaje()+","+                            
+                            fi+","+
+                            ff+"\n");//+"\n"                                        
+                }                
+                                                
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (output != null) {
+                    try {
+                        output.close();
+                    } catch (IOException ex) {
+                        Logger.getLogger(Proyecto2.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }        
+
+        JOptionPane.showMessageDialog(null, "Datos Actualizados", "Editar Tarea", JOptionPane.DEFAULT_OPTION);
+    }
 }
