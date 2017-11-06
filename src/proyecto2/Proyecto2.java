@@ -62,6 +62,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -101,6 +102,8 @@ public class Proyecto2 extends JFrame implements ActionListener {
     //administrador
     JFileChooser explorar;
     File archivoEmpleado;//contiene el archivo csv de empleados
+    File archivoTarea;//contiene el archivo csv de empleados
+    
     JPanel pmenu1;
     JPanel pSuper, pcarrusel, pAddEmpleado, pEditarEmpleado, pCrearTarea, pEditarTarea1, pReporteTarea;
 
@@ -663,6 +666,7 @@ public class Proyecto2 extends JFrame implements ActionListener {
         });
 
         Empleado listaAgregar = listadoEmpleado.getInicial().getValor();
+        //listadoEmpleado.Avanzar();i=1
         for (int i = 0; i < listadoEmpleado.count; i++)//agregar los empleados al modelo lista
         {
             listaAgregar = listadoEmpleado.getActual().getValor();
@@ -953,7 +957,7 @@ public class Proyecto2 extends JFrame implements ActionListener {
         listaTareas1.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent me) {
                 if (me.getClickCount() == 2) {// Cuenta la cantidad de clicks para saber si es doble                        
-                    //mostrarTarea();                                                                                                    
+                    mostrarTarea();                                                                                                    
                 }
             }
         });
@@ -967,6 +971,81 @@ public class Proyecto2 extends JFrame implements ActionListener {
         bCrearTarea.addActionListener((ActionListener) this);
         pCrearTarea.add(bCrearTarea);
 
+            String NombreTarea2,DescTarea2,EmpleadoTarea2,sfechai2,sfechaf2;
+            int Duracion2,Porcentaje2;
+            Date FechaI2,FechaF2;
+            SimpleDateFormat formato2 = new SimpleDateFormat("dd/MM/yyyy");
+
+
+            NombreTarea2="Papeleo de Ventas";
+            DescTarea2="Realizar documentación de las ventas hechas durante el mes";
+            EmpleadoTarea2 = "Juan Lopez";
+            sfechai2 = "14/08/2017";//dia/mes/año
+            sfechaf2="24/08/2017";
+            Duracion2 = 10;
+            Porcentaje2=100;        
+            try {
+                FechaI2 = formato2.parse(sfechai2);
+                FechaF2 = formato2.parse(sfechaf2);            
+                Tarea tarea2 = new Tarea (NombreTarea2,DescTarea2,EmpleadoTarea2,Duracion2,Porcentaje2,FechaI2,FechaF2);
+                modeloCrearTarea.addElement(tarea2);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            archivoTarea=new File("C:\\Tareas1.csv");
+
+            BufferedReader reader2 = null;
+
+            try {
+                int linea = 0;
+                reader2 = new BufferedReader(new FileReader(archivoTarea));
+                String text2 = null;
+
+                while ((text2 = reader2.readLine()) != null) {
+                    linea++;
+                    if (linea == 1) {
+                        continue;
+                    }
+                    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+                    String[] valor = text2.split(",");
+                    String NombreTarea = valor[0];
+                    String DescTarea = valor[1];
+                    String EmpleadoTarea = valor[2];
+                    int Duracion = Integer.parseInt(valor[3]);
+                    int Porcentaje = Integer.parseInt(valor[4]);
+			String sfechai=valor[5];
+			String sfechaf=valor[6];
+
+                    Date FechaI;
+                    Date FechaF;
+
+            try {
+                FechaI = formato.parse(sfechai);
+                FechaF = formato.parse(sfechaf);            
+                Tarea tarea = new Tarea (NombreTarea,DescTarea,EmpleadoTarea,Duracion,Porcentaje,FechaI,FechaF);
+                modeloCrearTarea.addElement(tarea);
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+                }
+                //JOptionPane.showMessageDialog(null, "Datos Cargados");
+                System.out.println("Tareas cargadas");
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (reader2 != null) {
+                        reader2.close();
+                    }
+                } catch (IOException e) {
+                }
+            }
+        
     }
 
     public void actionPerformed(ActionEvent evento) {
@@ -1023,8 +1102,6 @@ public class Proyecto2 extends JFrame implements ActionListener {
         if (evento.getSource() == bCargar) //    Cargar los datos
         {
         JFileChooser chooser = new JFileChooser();
-        //FileNameExtensionFilter filter = new FileNameExtensionFilter("csv");
-        //chooser.setFileFilter(filter);
         int returnVal = chooser.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
 
@@ -1081,6 +1158,9 @@ public class Proyecto2 extends JFrame implements ActionListener {
             }
         }
 
+
+            
+            
         }
 
         if (evento.getSource() == bEliminar) //    Eliminar los datos
@@ -1357,6 +1437,7 @@ public class Proyecto2 extends JFrame implements ActionListener {
             listadoEmpleado.Agregar(nuevoEmpleado);
             modeloAgregar.addElement(nuevoEmpleado);
             cbxEditarId.addItem(nuevoEmpleado.getId());
+            cbxCrearTareaEmpleado.addItem(nuevoEmpleado);
 
             BufferedWriter output = null;
             try {
@@ -1476,7 +1557,7 @@ public class Proyecto2 extends JFrame implements ActionListener {
                 
                 Empleado indice3 = listadoEmpleado.getInicial().getValor();
                 listadoEmpleado.Avanzar();
-                for (int i = 0; i < listadoEmpleado.getCount(); i++) {
+                for (int i = 1; i < listadoEmpleado.getCount(); i++) {
                             indice3 = listadoEmpleado.getActual().getValor();
                             //String der = String.valueOf(indice3.getId());
                             int indice3D,indice3L,indice3M,indice3Mi,indice3J,indice3V,indice3S;
@@ -1540,6 +1621,7 @@ public class Proyecto2 extends JFrame implements ActionListener {
         FechaF=fechainicio.getTime();
         System.out.print(FechaF);
         Tarea nuevaTarea = new Tarea(NombreTarea, DescTarea, EmpleadoTarea, Duracion, Porcentaje, FechaI, FechaF);
+
         modeloCrearTarea.addElement(nuevaTarea);
 
         JOptionPane.showMessageDialog(null, "Tarea agregada existosamente", "Agregar Tarea", JOptionPane.DEFAULT_OPTION);
@@ -1547,5 +1629,25 @@ public class Proyecto2 extends JFrame implements ActionListener {
 //      JOptionPane.showMessageDialog(null, "Mensaje dentro de la ventana", "Titulo", JOptionPane.DEFAULT_OPTION);                        
         System.out.println((dcCrearTareaFechaI.getDate()));
     }
+    
+    private void mostrarTarea() {
+        int index = listaTareas1.getSelectedIndex();
+        Tarea tar = (Tarea) modeloCrearTarea.getElementAt(index);
+        String finicio = "";
+        String ffinal="";
+
+        finicio=new SimpleDateFormat("dd-MM-yyyy").format(tar.getFechaI());
+        ffinal=new SimpleDateFormat("dd-MM-yyyy").format(tar.getFechaF());
+        
+        
+        JOptionPane.showMessageDialog(null, "Tarea: " + tar.getNombreTarea() + "\n"
+                + "Descripcion: " + tar.getDescTarea()+ "\n\n"
+                + "Empleado: " + tar.getEmpleadoTarea() + "\n"
+                + "Fecha Inicio: " + finicio + "\n"
+                + "Fecha Final: " + ffinal + "\n"
+                + "Avance: % " + tar.getPorcentaje() + "\n"                
+                , "Información de la tarea", JOptionPane.DEFAULT_OPTION);
+//      JOptionPane.showMessageDialog(null, "Mensaje dentro de la ventana", "Titulo", JOptionPane.DEFAULT_OPTION);                        
+    }    
 
 }
