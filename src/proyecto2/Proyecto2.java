@@ -98,7 +98,7 @@ public class Proyecto2 extends JFrame implements ActionListener {
     JTextField txusuario;
     JPasswordField textopassword;
     JButton b1;//boton de login
-    
+        JFileChooser pdf1;    
     //administrador
     JFileChooser explorar;
     File archivoEmpleado;//contiene el archivo csv de empleados
@@ -159,6 +159,12 @@ public class Proyecto2 extends JFrame implements ActionListener {
     JLabel lbEditarTareaNombre1, lbEditarTareaDesc1, lbEditarTareaFechaI1, lbEditarTareaDuracion1, lbEditarTareaFechaF1, lbEditarTareaPorcentaje1, lbEditarTareaEmpleado;
     JLabel lbEditarTareaNombre2, lbEditarTareaDesc2, lbEditarTareaFechaI2, lbEditarTareaDuracion2, lbEditarTareaFechaF2, lbEditarTareaPorcentaje2;            
     JLabel lbEditarTareaEmpleado2,lbEditarTareaEmpleado3;
+    
+    //Panel PDF admin
+    JButton bRegresarPDF,bpdfSinAsignar,bpdfFinalizadas,bpdfEmpleado,bpdfPorcentaje;
+    JLabel lbTituloPDF,lbTareasSinAsignar,lbTareasFinalizadas,lbTareasPorcentaje,lbTareasPorEmpleado;
+    JTextField txpdfPorcentaje;
+    JComboBox cbxpdfEmpleado;
     
 //panel menu Empleado    
     JPanel pEmpleado,pEditarTarea2,pTareasPendientes;
@@ -332,7 +338,7 @@ public class Proyecto2 extends JFrame implements ActionListener {
         vie = new JLabel();
         sab = new JLabel();
 
-        Empleado empleado = new Empleado(0, "Sebastián", "Cabrera", "Super Usuario", 1, false, true, true, true, true, true, false, "abc", "pass");
+        Empleado empleado = new Empleado(0, "Sebastián", "Cabrera", "Super Usuario", 1, false, true, true, true, true, true, false, "ROOT", "201611290");
         listadoEmpleado.Agregar(empleado);
 /*
         empleado = new Empleado(02, "Aaron", "Flores", "Desarrollador", 2, false, true, true, false, true, true, true, "aflores", "passtrue");
@@ -1139,15 +1145,94 @@ public class Proyecto2 extends JFrame implements ActionListener {
                 }
             }
         });
-        
-        
-
+                
         bEditarTarea.setText("Editar");
         bEditarTarea.setBounds(325, 200, 100, 25);
         bEditarTarea.addActionListener((ActionListener) this);
         pEditarTarea1.add(bEditarTarea);
             
-            
+
+//panel PDF administrador
+//-------------------
+        pReporteTarea = new JPanel();
+        pReporteTarea.setLayout(null);
+        pReporteTarea.setVisible(false);
+
+        bpdfSinAsignar = new JButton();
+        bpdfFinalizadas = new JButton();
+        bpdfEmpleado = new JButton();
+        bpdfPorcentaje = new JButton();
+        bRegresarPDF = new JButton();
+        cbxpdfEmpleado = new JComboBox();
+        txpdfPorcentaje = new JTextField();                
+        
+        lbTareasFinalizadas = new JLabel();
+        lbTareasSinAsignar = new JLabel();
+        lbTareasPorEmpleado = new JLabel();
+        lbTareasPorcentaje = new JLabel();       
+        lbTituloPDF = new JLabel();                
+        
+        bRegresarPDF.setText("Regresar");
+        bRegresarPDF.setBounds(20, 25, 100, 30);
+        bRegresarPDF.addActionListener((ActionListener) this);
+        pReporteTarea.add(bRegresarPDF);
+
+        lbTituloPDF.setText("Reportes de Tareas");
+        lbTituloPDF.setHorizontalAlignment(SwingConstants.CENTER);
+        lbTituloPDF.setFont(titulo);
+        pReporteTarea.add(lbTituloPDF);
+        lbTituloPDF.setBounds(175, 30, 150, 25);                        
+
+        lbTareasSinAsignar.setText("Tareas sin Asignar: tares sin empleado asginado");
+        lbTareasSinAsignar.setHorizontalAlignment(SwingConstants.RIGHT);
+        lbTareasSinAsignar.setFont(subtitulo);
+        pReporteTarea.add(lbTareasSinAsignar);
+        lbTareasSinAsignar.setBounds(25, 75, 325, 25);                        
+            bpdfSinAsignar.setText("PDF");
+            bpdfSinAsignar.setBounds(375, 75, 75, 30);
+            bpdfSinAsignar.addActionListener((ActionListener) this);
+            pReporteTarea.add(bpdfSinAsignar);
+
+        lbTareasFinalizadas.setText("Tareas Finalizadas: Tareas 100% compleatadas");
+        lbTareasFinalizadas.setHorizontalAlignment(SwingConstants.RIGHT);
+        lbTareasFinalizadas.setFont(subtitulo);
+        pReporteTarea.add(lbTareasFinalizadas);
+        lbTareasFinalizadas.setBounds(25, 125, 325, 25);                        
+            bpdfFinalizadas.setText("PDF");
+            bpdfFinalizadas.setBounds(375, 125, 75, 30);
+            bpdfFinalizadas.addActionListener((ActionListener) this);
+            pReporteTarea.add(bpdfFinalizadas);
+
+        lbTareasPorEmpleado.setText("Tareas por Empleado:");
+        lbTareasPorEmpleado.setHorizontalAlignment(SwingConstants.RIGHT);
+        lbTareasPorEmpleado.setFont(subtitulo);
+        pReporteTarea.add(lbTareasPorEmpleado);
+        lbTareasPorEmpleado.setBounds(25, 175, 150, 25);
+            pReporteTarea.add(cbxpdfEmpleado);
+            cbxpdfEmpleado.setBounds(200, 175, 150, 25);
+            cbxCrearTareaEmpleado.addItem("Sin Asignar");
+                bpdfEmpleado.setText("PDF");
+                bpdfEmpleado.setBounds(375, 175, 75, 30);
+                bpdfEmpleado.addActionListener((ActionListener) this);
+                pReporteTarea.add(bpdfEmpleado);
+        
+        lbTareasPorcentaje.setText("Porcentaje menor a:");
+        lbTareasPorcentaje.setHorizontalAlignment(SwingConstants.RIGHT);
+        lbTareasPorcentaje.setFont(subtitulo);
+        pReporteTarea.add(lbTareasPorcentaje);
+        lbTareasPorcentaje.setBounds(25, 225, 150, 25); 
+            txpdfPorcentaje.setText("0");
+            txpdfPorcentaje.setFont(subtitulo);
+            pReporteTarea.add(txpdfPorcentaje);
+            txpdfPorcentaje.setBounds(200, 225, 150, 25);
+                bpdfPorcentaje.setText("PDF");
+                bpdfPorcentaje.setBounds(375, 225, 75, 30);
+                bpdfPorcentaje.addActionListener((ActionListener) this);
+                pReporteTarea.add(bpdfPorcentaje);
+        
+        
+        
+//*/            
 
 //PANEL menu Empleado: 1
 //-------------------
@@ -1273,7 +1358,7 @@ public class Proyecto2 extends JFrame implements ActionListener {
         lbEmpleadoEditarTareaPorcentaje1.setFont(subtitulo);
         pEditarTarea2.add(lbEmpleadoEditarTareaPorcentaje1);
         lbEmpleadoEditarTareaPorcentaje1.setBounds(30, 250, 100, 25);
-            txEmpleadoEditarAvance.setText("Fecha Fin ");
+            txEmpleadoEditarAvance.setText("0");
             txEmpleadoEditarAvance.setFont(subtitulo);
             pEditarTarea2.add(txEmpleadoEditarAvance);
             txEmpleadoEditarAvance.setBounds(150, 250, 100, 25);
@@ -1324,7 +1409,7 @@ public class Proyecto2 extends JFrame implements ActionListener {
             int Duracion2,Porcentaje2;
             Date FechaI2,FechaF2;
             SimpleDateFormat formato2 = new SimpleDateFormat("dd/MM/yyyy");
-
+/*
 
             NombreTarea2="Papeleo de Ventas";
             DescTarea2="Realizar documentación de las ventas hechas durante el mes";
@@ -1342,7 +1427,7 @@ public class Proyecto2 extends JFrame implements ActionListener {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-
+*/
             archivoTarea=new File("C:\\progra\\Tareas2.csv");
 
             BufferedReader reader2 = null;
@@ -1413,8 +1498,8 @@ public class Proyecto2 extends JFrame implements ActionListener {
             pSuper.setVisible(true);
             plogin.setVisible(false);
             */
-                        getContentPane().add(pEmpleado);
-                        pEmpleado.setVisible(true);
+                        getContentPane().add(pmenu1);
+                        pmenu1.setVisible(true);
                         plogin.setVisible(false);
                         
 
@@ -1506,6 +1591,7 @@ public class Proyecto2 extends JFrame implements ActionListener {
                     cbxEditarId.addItem(CargarEmpleado.getId());
                     cbxCrearTareaEmpleado.addItem(CargarEmpleado);
                     cbxEditarTareaEmpleado.addItem(CargarEmpleado);
+                    cbxCrearTareaEmpleado.addItem(CargarEmpleado);
                 }
                 JOptionPane.showMessageDialog(null, "Datos Cargados");
             } catch (FileNotFoundException e) {
@@ -1725,6 +1811,62 @@ public class Proyecto2 extends JFrame implements ActionListener {
         {
             EditarTareaE();
         }
+        if (evento.getSource() == bRegresar5) //    regresar de editar porcentaje al menu epleado
+        {
+            pEditarTarea2.setVisible(false);
+            pEmpleado.setVisible(true);
+        }
+
+                if (evento.getSource()==bEmpleadoReportes)//generar pdf
+		{			
+            
+                    pdf1= new JFileChooser();
+                    int op=pdf1.showSaveDialog(this);
+
+                    if (op == JFileChooser.APPROVE_OPTION)
+                    {            
+                        File f = pdf1.getSelectedFile();
+                        //t411.setText(f.toString());
+                        String ruta = f.toString();
+                        try {
+                            FileOutputStream archivo = new FileOutputStream(ruta+".pdf");
+                            Document doc = new Document();
+                            PdfWriter.getInstance(doc, archivo);
+                            doc.open();
+
+                            String conte="TAREAS PENDIENTES\n";
+                            doc.add(new Paragraph(conte));
+                            int size = modeloCrearTarea.size();
+                            for (int i = 0; i < size; i++) {
+
+                                Tarea tarea = (Tarea)modeloCrearTarea.getElementAt(i);
+
+                                String finicio = "";
+                                String ffinal="";
+
+                                finicio=new SimpleDateFormat("dd-MM-yyyy").format(tarea.getFechaI());
+                                ffinal=new SimpleDateFormat("dd-MM-yyyy").format(tarea.getFechaF());
+                                
+                                String contenido="Tarea" + "  |  "+ tarea.getNombreTarea()+"   \n"
+                                        +"          Descripción: \n\t\t\t\t\t\t\t\t\t\t\t\t\t\t"+tarea.getDescTarea()+"\n"
+                                        +"          Fecha de Inicio: "+finicio+"\n"
+                                        +"          Duracion: "+tarea.getDuracion()+" dias\n"
+                                        +"          Fecha de Finalización: "+ffinal+"\n"
+                                        +"          Empleado asignado: "+tarea.getEmpleadoTarea()+"\n"
+                                        +"          Avance: "+tarea.getPorcentaje()+" % \n\n";
+                                
+                                if(tarea.getPorcentaje()<100){
+                                doc.add(new Paragraph(contenido));}
+                            }
+
+                            doc.close();
+                            JOptionPane.showMessageDialog(null,"PDF Creado exitosamente");
+
+                        } catch (Exception e) {
+                        }
+                    }
+                }
+        
         
         
     }
@@ -1840,7 +1982,7 @@ public class Proyecto2 extends JFrame implements ActionListener {
             modeloAgregar.addElement(nuevoEmpleado);
             cbxEditarId.addItem(nuevoEmpleado.getId());
             cbxCrearTareaEmpleado.addItem(nuevoEmpleado);
-
+            cbxCrearTareaEmpleado.addItem(nuevoEmpleado);
             BufferedWriter output = null;
             try {
 
@@ -2187,4 +2329,7 @@ public class Proyecto2 extends JFrame implements ActionListener {
 
         JOptionPane.showMessageDialog(null, "Datos Actualizados", "Editar Tarea", JOptionPane.DEFAULT_OPTION);
     }
+
+
+
 }
