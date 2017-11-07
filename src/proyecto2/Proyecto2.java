@@ -1798,6 +1798,23 @@ public class Proyecto2 extends JFrame implements ActionListener {
         {
             EditarTareaA();
         }
+            
+            if (evento.getSource() == bpdfSinAsignar) //PDF tareas sin asignar
+            {
+                PDFsinAsignar();
+            }
+            if (evento.getSource() == bpdfEmpleado) //PDF tareas sin asignar
+            {
+                PDFtareaEmpleado();
+            }
+            if (evento.getSource() == bpdfFinalizadas) //PDF tareas sin asignar
+            {
+                PDFfinalizadas();
+            }
+            if (evento.getSource() == bpdfPorcentaje) //PDF tareas sin asignar
+            {
+                PDFporcentaje();
+            }
         
         
         if (evento.getSource() == bEmpleadoEditarTarea) //    EMPLEADO: Editar tarea
@@ -2330,6 +2347,203 @@ public class Proyecto2 extends JFrame implements ActionListener {
         JOptionPane.showMessageDialog(null, "Datos Actualizados", "Editar Tarea", JOptionPane.DEFAULT_OPTION);
     }
 
+    private void PDFsinAsignar(){
+                    
+        pdf1= new JFileChooser();
+        int op=pdf1.showSaveDialog(this);
+               
+        if (op == JFileChooser.APPROVE_OPTION)        
+        {                    
+            File f = pdf1.getSelectedFile();                                    
+            String ruta = f.toString();
+                
+            try {            
+                FileOutputStream archivo = new FileOutputStream(ruta+".pdf");
+                Document doc = new Document();                            
+                PdfWriter.getInstance(doc, archivo);
 
+                doc.open();
+                String conte="TAREAS SIN ASIGNAR\n";                
+                doc.add(new Paragraph(conte));                
+                int size = modeloCrearTarea.size();                
+                for (int i = 0; i < size; i++) {
+                    Tarea tarea = (Tarea)modeloCrearTarea.getElementAt(i);
+                    
+                    String finicio = "";                    
+                    String ffinal="";
+                    
+                    finicio=new SimpleDateFormat("dd-MM-yyyy").format(tarea.getFechaI());                    
+                    ffinal=new SimpleDateFormat("dd-MM-yyyy").format(tarea.getFechaF());
+                    
+                    
+                    
+                    String contenido="Tarea" + "  |  "+ tarea.getNombreTarea()+"   \n"
+                    
+                            +"          Descripción: \n\t\t\t\t\t\t\t\t\t\t\t\t\t\t"+tarea.getDescTarea()+"\n"                            
+                            +"          Fecha de Inicio: "+finicio+"\n"                            
+                            +"          Duracion: "+tarea.getDuracion()+" dias\n"                            
+                            +"          Fecha de Finalización: "+ffinal+"\n"                            
+                            +"          Empleado asignado: "+tarea.getEmpleadoTarea()+"\n"                            
+                            +"          Avance: "+tarea.getPorcentaje()+" % \n\n";                                                
+                    
+                    if(tarea.getEmpleadoTarea()=="Sin Asignar"){                    
+                        doc.add(new Paragraph(contenido));}                       
+                }                                
+                doc.close();                
+                JOptionPane.showMessageDialog(null,"PDF Creado exitosamente");                                
+            } catch (Exception e) {            
+            }
+        }
+    }
+   
+    private void PDFfinalizadas(){
+                    
+        pdf1= new JFileChooser();
+        int op=pdf1.showSaveDialog(this);
+               
+        if (op == JFileChooser.APPROVE_OPTION)        
+        {                    
+            File f = pdf1.getSelectedFile();                                    
+            String ruta = f.toString();
+                
+            try {            
+                FileOutputStream archivo = new FileOutputStream(ruta+".pdf");
+                Document doc = new Document();                            
+                PdfWriter.getInstance(doc, archivo);
 
+                doc.open();
+                String conte="TAREAS FINALIZADAS\n";                
+                doc.add(new Paragraph(conte));                
+                int size = modeloCrearTarea.size();                
+                for (int i = 0; i < size; i++) {
+                    Tarea tarea = (Tarea)modeloCrearTarea.getElementAt(i);
+                    
+                    String finicio = "";                    
+                    String ffinal="";
+                    
+                    finicio=new SimpleDateFormat("dd-MM-yyyy").format(tarea.getFechaI());                    
+                    ffinal=new SimpleDateFormat("dd-MM-yyyy").format(tarea.getFechaF());
+                    
+                    
+                    
+                    String contenido="Tarea" + "  |  "+ tarea.getNombreTarea()+"   \n"
+                    
+                            +"          Descripción: \n\t\t\t\t\t\t\t\t\t\t\t\t\t\t"+tarea.getDescTarea()+"\n"                            
+                            +"          Fecha de Inicio: "+finicio+"\n"                            
+                            +"          Duracion: "+tarea.getDuracion()+" dias\n"                            
+                            +"          Fecha de Finalización: "+ffinal+"\n"                            
+                            +"          Empleado asignado: "+tarea.getEmpleadoTarea()+"\n"                            
+                            +"          Avance: "+tarea.getPorcentaje()+" % \n\n";                                                
+                    
+                    if(tarea.getPorcentaje()==100){                    
+                        doc.add(new Paragraph(contenido));}                       
+                }                                
+                doc.close();                
+                JOptionPane.showMessageDialog(null,"PDF Creado exitosamente");                                
+            } catch (Exception e) {            
+            }
+        }
+    }
+    
+    private void PDFtareaEmpleado(){
+                    
+        pdf1= new JFileChooser();
+        int op=pdf1.showSaveDialog(this);
+               
+        if (op == JFileChooser.APPROVE_OPTION)        
+        {                    
+            File f = pdf1.getSelectedFile();                                    
+            String ruta = f.toString();
+                
+            try {            
+                FileOutputStream archivo = new FileOutputStream(ruta+".pdf");
+                Document doc = new Document();                            
+                PdfWriter.getInstance(doc, archivo);
+
+                doc.open();
+                String abc= String.valueOf(cbxpdfEmpleado.getSelectedItem());
+                String conte="TAREAS: "+abc.toUpperCase()+"\n";                
+                doc.add(new Paragraph(conte));                
+                int size = modeloCrearTarea.size();                
+                for (int i = 0; i < size; i++) {
+                    Tarea tarea = (Tarea)modeloCrearTarea.getElementAt(i);
+                    
+                    String finicio = "";                    
+                    String ffinal="";
+                    
+                    finicio=new SimpleDateFormat("dd-MM-yyyy").format(tarea.getFechaI());                    
+                    ffinal=new SimpleDateFormat("dd-MM-yyyy").format(tarea.getFechaF());
+                                
+                String contenido="Tarea" + "  |  "+ tarea.getNombreTarea()+"   \n"
+                    
+                            +"          Descripción: \n\t\t\t\t\t\t\t\t\t\t\t\t\t\t"+tarea.getDescTarea()+"\n"                            
+                            +"          Fecha de Inicio: "+finicio+"\n"                            
+                            +"          Duracion: "+tarea.getDuracion()+" dias\n"                            
+                            +"          Fecha de Finalización: "+ffinal+"\n"                            
+                            +"          Empleado asignado: "+tarea.getEmpleadoTarea()+"\n"                            
+                            +"          Avance: "+tarea.getPorcentaje()+" % \n\n";                                                
+                    
+                    if(tarea.getEmpleadoTarea().contains(abc)){                    
+                        doc.add(new Paragraph(contenido));}                       
+                }                                
+
+                doc.close();                
+                JOptionPane.showMessageDialog(null,"PDF Creado exitosamente");                                
+            } catch (Exception e) {            
+            }
+        }
+    }
+    
+    private void PDFporcentaje(){
+                    
+        pdf1= new JFileChooser();
+        int op=pdf1.showSaveDialog(this);
+               
+        if (op == JFileChooser.APPROVE_OPTION)        
+        {                    
+            File f = pdf1.getSelectedFile();                                    
+            String ruta = f.toString();
+                
+            try {            
+                FileOutputStream archivo = new FileOutputStream(ruta+".pdf");
+                Document doc = new Document();                            
+                PdfWriter.getInstance(doc, archivo);
+
+                doc.open();
+                String porcentaje1= txpdfPorcentaje.getText();
+                int porcentaje2=Integer.parseInt(porcentaje1);
+                String conte="TAREAS CON PROGRESO MENOR A "+porcentaje2+" % \n";                
+                doc.add(new Paragraph(conte));                
+                int size = modeloCrearTarea.size();                
+                for (int i = 0; i < size; i++) {
+                    Tarea tarea = (Tarea)modeloCrearTarea.getElementAt(i);
+                    
+                    String finicio = "";                    
+                    String ffinal="";
+                    
+                    finicio=new SimpleDateFormat("dd-MM-yyyy").format(tarea.getFechaI());                    
+                    ffinal=new SimpleDateFormat("dd-MM-yyyy").format(tarea.getFechaF());
+                                
+                String contenido="Tarea" + "  |  "+ tarea.getNombreTarea()+"   \n"
+                    
+                            +"          Descripción: \n\t\t\t\t\t\t\t\t\t\t\t\t\t\t"+tarea.getDescTarea()+"\n"                            
+                            +"          Fecha de Inicio: "+finicio+"\n"                            
+                            +"          Duracion: "+tarea.getDuracion()+" dias\n"                            
+                            +"          Fecha de Finalización: "+ffinal+"\n"                            
+                            +"          Empleado asignado: "+tarea.getEmpleadoTarea()+"\n"                            
+                            +"          Avance: "+tarea.getPorcentaje()+" % \n\n";                                                
+                    
+                    if(tarea.getPorcentaje()<porcentaje2){                    
+                        doc.add(new Paragraph(contenido));}                       
+                }                                
+
+                doc.close();                
+                JOptionPane.showMessageDialog(null,"PDF Creado exitosamente");                                
+            } catch (Exception e) {            
+            }
+        }
+    }
+    
+    
+    
 }
